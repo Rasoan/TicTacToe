@@ -18,6 +18,8 @@ module.exports = function(env) {
         devServer: {
             port: 3000,
             open: true,
+            hot: false,
+            liveReload: true,
             client: {
                 progress: true,
             },
