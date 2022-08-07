@@ -1,10 +1,39 @@
 <!DOCTYPE html>
 <html lang="ru">
-    <head>
-        <meta charset="utf-8">
-        <title>Главная страница</title>
-    </head>
-    <body>
-        <div id="root"></div>
-    </body>
+<head>
+    <meta charset="utf-8">
+    <title>Главная страница</title>
+</head>
+<body>
+<div id="root">
+    <div id="Settings" class="settings settingsForm">
+        <form class="settingsForm" id="__SETTINGS_FORM_ID__">
+            <fieldset>
+                <legend>Settings</legend>
+                <label>
+                    Playing field dimension
+                    <input id="__PLAYING_FIELD_DIMENSION_ID__"
+                           type="number"
+                           min="3"
+                           max="55"
+                           value="3"
+                           step="2"
+                    >
+                </label>
+                <label>
+                    Winning streak dimension
+                    <input id="__WINNING_STREAK_DIMENSION_ID__"
+                           type="number"
+                           min="3"
+                           max="3"
+                           value="2"
+                           step="1"
+                    >
+                </label>
+                <button id="__START_GAME_BUTTON_ID__">Start game</button>
+            </fieldset>
+        </form>
+    </div>
+</div>
+</body>
 </html>
