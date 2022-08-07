@@ -1,10 +1,14 @@
 'use strict';
 
-import {PLAYING_FIELD_DIMENSION_ID, SETTINGS_FORM_ID, WINNING_STREAK_DIMENSION_ID} from "./src/constants/constants";
+import {
+    PLAYING_FIELD_DIMENSION_ID,
+    SETTINGS_FORM_ID,
+    WINNING_STREAK_DIMENSION_ID,
+} from "./src/constants/constants";
 import {
     addListenerForChangeMaxWinStreak,
     addListenerForStartGame,
-    initializeSettingsFormFromLocalStorage
+    initializeSettingsFormFromLocalStorage,
 } from "./src/SettingsForm/SettingsForm";
 
 {
@@ -19,6 +23,6 @@ import {
     addListenerForStartGame(
         settingsForm,
         playingFieldDimension,
-        winningStreakDimension
+        winningStreakDimension,
     );
 }
