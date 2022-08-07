@@ -29,8 +29,9 @@ module.exports = function(env) {
         module: {
             rules: [
                 {
-                    test: /\.tsx?$/,
+                    test: /\.ts?$/i,
                     loader: 'ts-loader',
+                    exclude: /node_modules/,
                 },
                 {
                     test: /\.(sa|sc|c)ss$/,
