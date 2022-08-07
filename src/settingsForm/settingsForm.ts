@@ -1,6 +1,10 @@
 'use strict';
 
-import {getValueForLocalStorage, LocalStorage, setValueForLocalStorage} from "../localStorage/localStorage";
+import {
+    LocalStorageKeys,
+    getValueForLocalStorage,
+    setValueForLocalStorage,
+} from "../localStorage/localStorage";
 
 export function addListenerForChangeMaxWinStreak(
     playingFieldDimension: HTMLElement | null,
@@ -27,8 +31,8 @@ export function initializeSettingsFormFromLocalStorage(
     playingFieldDimension: HTMLInputElement | null,
     winningStreakDimension: HTMLInputElement | null,
 ) {
-    const playingFieldDimensionValue = getValueForLocalStorage(LocalStorage.playingFieldDimension);
-    const winningStreakDimensionValue = getValueForLocalStorage(LocalStorage.winningStreakDimension);
+    const playingFieldDimensionValue = getValueForLocalStorage(LocalStorageKeys.playingFieldDimension);
+    const winningStreakDimensionValue = getValueForLocalStorage(LocalStorageKeys.winningStreakDimension);
 
     if (playingFieldDimension && playingFieldDimensionValue) {
         playingFieldDimension.setAttribute('value', String(playingFieldDimensionValue));
@@ -53,7 +57,7 @@ function _setSettingsInLocalStorage(
     if (playingFieldDimensionValue) {
         setValueForLocalStorage(
             {
-                key: LocalStorage.playingFieldDimension,
+                key: LocalStorageKeys.playingFieldDimension,
                 value: playingFieldDimensionValue,
             },
         );
@@ -65,7 +69,7 @@ function _setSettingsInLocalStorage(
     if (winningStreakDimensionValue) {
         setValueForLocalStorage(
             {
-                key: LocalStorage.winningStreakDimension,
+                key: LocalStorageKeys.winningStreakDimension,
                 value: winningStreakDimensionValue,
             },
         );
