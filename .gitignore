@@ -55,3 +55,4 @@ npm-debug.log
 config.json
 cfAgentBackstart.json
 test_*
+dist/
