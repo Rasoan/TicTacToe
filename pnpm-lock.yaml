@@ -19,6 +19,7 @@ specifiers:
   postcss-cssnext: ^3.1.1
   postcss-import: ^14.1.0
   postcss-loader: ^7.0.1
+  sass: ^1.54.3
   sass-loader: ^13.0.2
   style-loader: ^3.3.1
   sugarss: ^4.0.1
@@ -49,7 +50,8 @@ devDependencies:
   postcss-cssnext: 3.1.1
   postcss-import: 14.1.0_postcss@8.4.14
   postcss-loader: 7.0.1_postcss@8.4.14+webpack@5.74.0
-  sass-loader: 13.0.2_node-sass@7.0.1+webpack@5.74.0
+  sass: 1.54.3
+  sass-loader: 13.0.2_ec905701baee84a2da731e202f6b9201
   style-loader: 3.3.1_webpack@5.74.0
   sugarss: 4.0.1_postcss@8.4.14
   ts-loader: 9.3.1_typescript@4.7.4+webpack@5.74.0
@@ -4027,6 +4029,10 @@ packages:
     engines: {node: '>= 4'}
     dev: true
 
+  /immutable/4.1.0:
+    resolution: {integrity: sha512-oNkuqVTA8jqG1Q6c+UglTOD1xhC1BtjKI7XkCXRkZHrN5m18/XsnUp8Q89GkQO/z+0WjonSvl0FLhDYftp46nQ==}
+    dev: true
+
   /import-fresh/3.3.0:
     resolution: {integrity: sha512-veYYhQa+D1QBKznvhUHxb8faxlrwUnxseDAbAp457E0wLNio2bOSKnjYDhMj+YiAq61xrMGhQk9iXVk5FzgQMw==}
     engines: {node: '>=6'}
@@ -6646,7 +6652,7 @@ packages:
       yargs: 17.5.1
     dev: true
 
-  /sass-loader/13.0.2_node-sass@7.0.1+webpack@5.74.0:
+  /sass-loader/13.0.2_ec905701baee84a2da731e202f6b9201:
     resolution: {integrity: sha512-BbiqbVmbfJaWVeOOAu2o7DhYWtcNmTfvroVgFXa6k2hHheMxNAeDHLNoDy/Q5aoaVlz0LH+MbMktKwm9vN/j8Q==}
     engines: {node: '>= 14.15.0'}
     peerDependencies:
@@ -6668,7 +6674,18 @@ packages:
       klona: 2.0.5
       neo-async: 2.6.2
       node-sass: 7.0.1
+      sass: 1.54.3
       webpack: 5.74.0_webpack-cli@4.10.0
+    dev: true
+
+  /sass/1.54.3:
+    resolution: {integrity: sha512-fLodey5Qd41Pxp/Tk7Al97sViYwF/TazRc5t6E65O7JOk4XF8pzwIW7CvCxYVOfJFFI/1x5+elDyBIixrp+zrw==}
+    engines: {node: '>=12.0.0'}
+    hasBin: true
+    dependencies:
+      chokidar: 3.5.3
+      immutable: 4.1.0
+      source-map-js: 1.0.2
     dev: true
 
   /saxes/5.0.1:

@@ -1,6 +1,7 @@
 const path = require('path');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const miniCss = require('mini-css-extract-plugin');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = function(env) {
     const isRunCleanWebpackPlugin = !env['noCleanWebpackPlugin'];
@@ -34,15 +35,11 @@ module.exports = function(env) {
                     exclude: /node_modules/,
                 },
                 {
-                    test: /\.(sa|sc|c)ss$/,
+                    test: /\.s[ac]ss$/i,
                     use: [
-                        {
-                            loader: MiniCssExtractPlugin.loader,
-                            options: {},
-                        },
-                        'css-loader',
-                        'postcss-loader',
-                        'sass-loader',
+                        miniCss.loader,
+                        "css-loader",
+                        "sass-loader",
                     ],
                 },
                 // {
@@ -75,6 +72,7 @@ module.exports = function(env) {
                     useShortDoctype: true,
                 },
             }),
+            new MiniCssExtractPlugin(),
         ],
     };
 }
