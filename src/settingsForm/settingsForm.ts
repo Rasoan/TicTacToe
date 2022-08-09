@@ -7,88 +7,58 @@ import {
 } from "../localStorage/localStorage";
 
 export function addListenerForChangeMaxWinStreak(
-    playingFieldDimension: HTMLElement | null,
-    winningStreakDimension: HTMLElement | null,
+    playingFieldDimension: HTMLInputElement,
+    winningStreakDimension: HTMLInputElement,
 ): void {
-    if (playingFieldDimension) {
-        playingFieldDimension.addEventListener('change', (event: Event) => {
-            const playingFieldDimensionValue: string = (event?.target as HTMLInputElement).value;
+    playingFieldDimension.addEventListener('change', (event: Event) => {
+        const playingFieldDimensionValue: string = (event.target as HTMLInputElement).value;
 
-            if (winningStreakDimension) {
-                winningStreakDimension.setAttribute('max', playingFieldDimensionValue);
-            }
-            else {
-                console.error('winningStreakDimension is not defined!');
-            }
-        });
-    }
-    else {
-        console.error('playingFieldDimension is not defined!');
-    }
+        winningStreakDimension.setAttribute('max', playingFieldDimensionValue);
+    });
 }
 
 export function initializeSettingsFormFromLocalStorage(
-    playingFieldDimension: HTMLInputElement | null,
-    winningStreakDimension: HTMLInputElement | null,
+    playingFieldDimension: HTMLInputElement,
+    winningStreakDimension: HTMLInputElement,
 ) {
     const playingFieldDimensionValue = getValueForLocalStorage(LocalStorageKeys.playingFieldDimension);
     const winningStreakDimensionValue = getValueForLocalStorage(LocalStorageKeys.winningStreakDimension);
 
-    if (playingFieldDimension && playingFieldDimensionValue) {
-        playingFieldDimension.setAttribute('value', String(playingFieldDimensionValue));
-    }
-
-    if (winningStreakDimension && winningStreakDimensionValue) {
-        winningStreakDimension.setAttribute('value', String(winningStreakDimensionValue));
-    }
-
-    if (winningStreakDimension && playingFieldDimension) {
-        winningStreakDimension.setAttribute('max', String(playingFieldDimensionValue));
-    }
+    playingFieldDimension.setAttribute('value', String(playingFieldDimensionValue));
+    winningStreakDimension.setAttribute('value', String(winningStreakDimensionValue));
+    winningStreakDimension.setAttribute('max', String(playingFieldDimensionValue));
 }
 
 function _setSettingsInLocalStorage(
-    playingFieldDimension: HTMLInputElement | null,
-    winningStreakDimension: HTMLInputElement | null,
+    playingFieldDimension: HTMLInputElement,
+    winningStreakDimension: HTMLInputElement,
 ): void {
     const playingFieldDimensionValue = playingFieldDimension?.value;
     const winningStreakDimensionValue = winningStreakDimension?.value;
 
-    if (playingFieldDimensionValue) {
-        setValueForLocalStorage(
-            {
-                key: LocalStorageKeys.playingFieldDimension,
-                value: playingFieldDimensionValue,
-            },
-        );
-    }
-    else {
-        console.error('playingFieldDimension is not defined!');
-    }
+    setValueForLocalStorage(
+        {
+            key: LocalStorageKeys.playingFieldDimension,
+            value: playingFieldDimensionValue,
+        },
+    );
 
-    if (winningStreakDimensionValue) {
-        setValueForLocalStorage(
-            {
-                key: LocalStorageKeys.winningStreakDimension,
-                value: winningStreakDimensionValue,
-            },
-        );
-    }
-    else {
-        console.error('winningStreakDimension is not defined!');
-    }
+    setValueForLocalStorage(
+        {
+            key: LocalStorageKeys.winningStreakDimension,
+            value: winningStreakDimensionValue,
+        },
+    );
 }
 
 export function addListenerForStartGame(
-    settingsForm: HTMLElement | null,
-    playingFieldDimension: HTMLInputElement | null,
-    winningStreakDimension: HTMLInputElement | null,
+    settingsForm: HTMLElement,
+    playingFieldDimension: HTMLInputElement,
+    winningStreakDimension: HTMLInputElement,
 ): void {
-    if (settingsForm) {
-        settingsForm.addEventListener('submit', (event: SubmitEvent) => {
-            event.preventDefault();
+    settingsForm.addEventListener('submit', (event: SubmitEvent) => {
+        event.preventDefault();
 
-            _setSettingsInLocalStorage(playingFieldDimension, winningStreakDimension);
-        });
-    }
+        _setSettingsInLocalStorage(playingFieldDimension, winningStreakDimension);
+    });
 }

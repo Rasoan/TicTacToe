@@ -19,16 +19,30 @@ import {getGameBoard} from "./src/gameBoard/gameBoard";
     const winningStreakDimension = document.getElementById(WINNING_STREAK_DIMENSION_ID) as HTMLInputElement | null;
     const settingsForm = document.getElementById(SETTINGS_FORM_ID) as HTMLFormElement | null;
 
+    if (playingFieldDimension && winningStreakDimension) {
+        initializeSettingsFormFromLocalStorage(playingFieldDimension, winningStreakDimension);
+    }
+    else {
+        console.error('playingFieldDimension of winningStreakDimension is not defined!')
+    }
 
-    initializeSettingsFormFromLocalStorage(playingFieldDimension, winningStreakDimension);
+    if (playingFieldDimension && winningStreakDimension) {
+        addListenerForChangeMaxWinStreak(playingFieldDimension, winningStreakDimension);
+    }
+    else {
+        console.error('playingFieldDimension or winningStreakDimension is not defined!');
+    }
 
-    addListenerForChangeMaxWinStreak(playingFieldDimension, winningStreakDimension);
-
-    addListenerForStartGame(
-        settingsForm,
-        playingFieldDimension,
-        winningStreakDimension,
-    );
+    if (settingsForm && playingFieldDimension && winningStreakDimension) {
+        addListenerForStartGame(
+            settingsForm,
+            playingFieldDimension,
+            winningStreakDimension,
+        );
+    }
+    else {
+        console.error('settingsForm or playingFieldDimension or winningStreakDimension is not defined!');
+    }
 
     const gameBoard = getGameBoard(3);
 
