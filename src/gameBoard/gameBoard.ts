@@ -1,20 +1,11 @@
-import {GAME_BOARD_ID} from "../constants/constants";
+'use strict';
 
-export function getGameBoard(
-    sizeBoard: number,
-) {
-    let gameBoard = document.getElementById(GAME_BOARD_ID) as HTMLElement | null;
-
-    if (gameBoard) {
-        gameBoard.remove();
-    }
-
-    gameBoard = document.createElement('div');
-
-    gameBoard.setAttribute('id', GAME_BOARD_ID);
-    gameBoard.setAttribute('class', 'gameBoard');
+export function getGameBoardCells(sizeBoard: number) {
+    const gameBoardTable = [];
 
     for (let y = 1; y <= sizeBoard; y++) {
+        const gameBoardRow = [];
+
         for(let x = 1; x <= sizeBoard; x++) {
             const gameCell = document.createElement('div');
 
@@ -22,9 +13,11 @@ export function getGameBoard(
             gameCell.setAttribute('y', String(y));
             gameCell.setAttribute('x', String(x));
 
-            gameBoard.appendChild(gameCell);
+            gameBoardRow.push(gameCell);
         }
+
+        gameBoardTable.push(gameBoardRow);
     }
 
-    return gameBoard;
+    return gameBoardTable;
 }

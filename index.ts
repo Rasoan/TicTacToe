@@ -1,6 +1,7 @@
 'use strict';
 
 import {
+    GAME_BOARD_ID,
     PLAYING_FIELD_DIMENSION_ID,
     ROOT_ID,
     SETTINGS_FORM_ID,
@@ -11,7 +12,9 @@ import {
     addListenerForStartGame,
     initializeSettingsFormFromLocalStorage,
 } from "./src/SettingsForm/SettingsForm";
-import {getGameBoard} from "./src/gameBoard/gameBoard";
+import {getGameBoardCells} from "./src/gameBoard/gameBoard";
+
+import './src/gameBoard/gameBoard.scss';
 
 {
     const rootElement = document.getElementById(ROOT_ID) as HTMLElement | null;
@@ -44,9 +47,29 @@ import {getGameBoard} from "./src/gameBoard/gameBoard";
         console.error('settingsForm or playingFieldDimension or winningStreakDimension is not defined!');
     }
 
-    const gameBoard = getGameBoard(3);
+    let gameBoard = document.getElementById(GAME_BOARD_ID) as HTMLElement | null;
+
+    if (gameBoard) {
+        gameBoard.remove();
+    }
+
+    gameBoard = document.createElement('div');
+
+    gameBoard.setAttribute('id', GAME_BOARD_ID);
+    gameBoard.setAttribute('class', 'gameBoard');
+
+    const gameBoardTable = getGameBoardCells(3);
+
+    for (const currentRow of gameBoardTable) {
+        for (const currentCell of currentRow) {
+            gameBoard.appendChild(currentCell);
+        }
+    }
 
     if (rootElement) {
         rootElement.appendChild(gameBoard);
+    }
+    else {
+        console.error('rootElement is not defined!');
     }
 }
