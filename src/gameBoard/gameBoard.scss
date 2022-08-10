@@ -1,0 +1,21 @@
+.gameBoard {
+  margin: 20px;
+
+  &Table {
+    width: max-content;
+    border: 1px solid black;
+    padding: 10px;
+  }
+
+  &__row {
+    display: flex;
+  }
+}
+
+.gameCell {
+  width: 35px;
+  height: 35px;
+  background-color: #eeece9;
+  border: black 1px solid;
+  margin: 10px;
+}

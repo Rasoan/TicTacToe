@@ -2,16 +2,16 @@
 <html lang="ru">
 <head>
     <meta charset="utf-8">
+    <link rel="stylesheet" href="main.css">
     <title>Главная страница</title>
 </head>
 <body>
-<div id="root">
-    <div id="Settings" class="settings settingsForm">
-        <form class="settingsForm" id="__SETTINGS_FORM_ID__">
-            <fieldset>
+<div id="__ROOT_ID__" class="root">
+    <div id="Settings" class="settings">
+        <form id="__SETTINGS_FORM_ID__" class="settings__form settingsForm">
+            <fieldset class="settingsForm__section settingsFormSection">
                 <legend>Settings</legend>
                 <label>
-                    Playing field dimension
                     <input id="__PLAYING_FIELD_DIMENSION_ID__"
                            type="number"
                            min="3"
@@ -19,9 +19,9 @@
                            value="3"
                            step="2"
                     >
+                    Playing field
                 </label>
                 <label>
-                    Winning streak dimension
                     <input id="__WINNING_STREAK_DIMENSION_ID__"
                            type="number"
                            min="3"
@@ -29,11 +29,13 @@
                            value="2"
                            step="1"
                     >
+                    Winning streak
                 </label>
-                <button id="__START_GAME_BUTTON_ID__">Start game</button>
             </fieldset>
+            <button id="__START_GAME_BUTTON_ID__" class="settingsForm__buttonSubmit settingsFormButtonSubmit">Start game</button>
         </form>
     </div>
+    <div id="__GAME_BOARD_ID__" class="gameBoard"></div>
 </div>
 </body>
 </html>

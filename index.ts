@@ -14,7 +14,7 @@ import {
 } from "./src/SettingsForm/SettingsForm";
 import {getGameBoardCells} from "./src/gameBoard/gameBoard";
 
-import './src/gameBoard/gameBoard.scss';
+import './src/style.scss';
 
 {
     const rootElement = document.getElementById(ROOT_ID) as HTMLElement | null;
@@ -56,14 +56,20 @@ import './src/gameBoard/gameBoard.scss';
     gameBoard = document.createElement('div');
 
     gameBoard.setAttribute('id', GAME_BOARD_ID);
-    gameBoard.setAttribute('class', 'gameBoard');
+    gameBoard.setAttribute('class', 'gameBoard gameBoardTable');
 
-    const gameBoardTable = getGameBoardCells(3);
+    const gameBoardCellsArray = getGameBoardCells(3);
 
-    for (const currentRow of gameBoardTable) {
+    for (const currentRow of gameBoardCellsArray) {
+        const gameBoardRow = document.createElement('div');
+
+        gameBoardRow.setAttribute('class', 'gameBoard__row');
+
         for (const currentCell of currentRow) {
-            gameBoard.appendChild(currentCell);
+            gameBoardRow.appendChild(currentCell);
         }
+
+        gameBoard.appendChild(gameBoardRow);
     }
 
     if (rootElement) {
