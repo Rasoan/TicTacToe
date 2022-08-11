@@ -58,7 +58,7 @@ import './src/style.scss';
     gameBoard.setAttribute('id', GAME_BOARD_ID);
     gameBoard.setAttribute('class', 'gameBoard gameBoardTable');
 
-    const gameBoardCellsArray = getGameBoardCells(3);
+    const gameBoardCellsArray = getGameBoardCells(9);
 
     for (const currentRow of gameBoardCellsArray) {
         const gameBoardRow = document.createElement('div');

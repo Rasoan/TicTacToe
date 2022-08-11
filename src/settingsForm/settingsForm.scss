@@ -1,6 +1,6 @@
 .settings {
   margin: 20px;
-  width: 180px;
+  width: 220px;
 
   &Form {
     width: 100%;
@@ -9,9 +9,22 @@
     flex-direction: column;
 
     &Section {
-      width: 90%;
+      width: 88%;
       display: flex;
       flex-direction: column;
+    }
+
+    &Section__label {
+      margin: 8px 0;
+    }
+
+    &Label__input {
+      margin-right: 10px;
+    }
+
+    &Input {
+      width: 35px;
+      padding: 2px 4px;
     }
 
     &__buttonSubmit {
@@ -20,6 +33,7 @@
 
     &ButtonSubmit {
       width: 100%;
+      padding: 4px 0;
     }
   }
 }

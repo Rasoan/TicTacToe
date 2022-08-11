@@ -10,26 +10,28 @@
     <div id="Settings" class="settings">
         <form id="__SETTINGS_FORM_ID__" class="settings__form settingsForm">
             <fieldset class="settingsForm__section settingsFormSection">
-                <legend>Settings</legend>
-                <label>
+                <legend class="settingsFormSection__legend settingsFormLegend">Settings</legend>
+                <label class="settingsFormSection__label settingsFormLabel">
                     <input id="__PLAYING_FIELD_DIMENSION_ID__"
+                           class="settingsFormLabel__input settingsFormInput"
                            type="number"
                            min="3"
                            max="55"
                            value="3"
                            step="2"
                     >
-                    Playing field
+                    <span class="settingsFormLabel__text settingsFormLabelText">Playing field</span>
                 </label>
-                <label>
+                <label class="settingsFormSection__label settingsFormLabel">
                     <input id="__WINNING_STREAK_DIMENSION_ID__"
+                           class="settingsFormLabel__input settingsFormInput"
                            type="number"
                            min="3"
                            max="3"
                            value="2"
                            step="1"
                     >
-                    Winning streak
+                    <span class="settingsFormLabel__text settingsFormLabelText">Winning streak</span>
                 </label>
             </fieldset>
             <button id="__START_GAME_BUTTON_ID__" class="settingsForm__buttonSubmit settingsFormButtonSubmit">Start game</button>
