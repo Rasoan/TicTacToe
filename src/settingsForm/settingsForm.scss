@@ -34,6 +34,10 @@
     &ButtonSubmit {
       width: 100%;
       padding: 4px 0;
+
+      &:hover {
+        cursor: pointer;
+      }
     }
   }
 }
