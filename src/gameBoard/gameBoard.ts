@@ -5,13 +5,12 @@ import {
     GAME_CELL_MARKED_O,
     GAME_CELL_MARKED_X,
     GAMER_O,
-    GAMER_PROPERTY_NAME,
+    PLAYER_WALKS,
     GAMER_X,
-    HIDDEN,
-    O,
-    X, X_COORDINATE, Y_COORDINATE
+    HIDDEN, CELL_MARK,
+    PLAYER_MARK,
 } from "../consts";
-import {PLAYER} from "./declaration/gameBoard";
+import {COORDINATE, PLAYER, PLAYER_TEXT} from "./declaration/gameBoard";
 
 export function getGameBoardCells(sizeBoard: number) {
     const gameBoardTable = [];
@@ -23,18 +22,18 @@ export function getGameBoardCells(sizeBoard: number) {
             const gameCell = document.createElement('div');
 
             gameCell.setAttribute('class', GAME_CELL);
-            gameCell.setAttribute(X_COORDINATE, String(x));
-            gameCell.setAttribute(Y_COORDINATE, String(y));
+            gameCell.setAttribute(COORDINATE.X, String(x));
+            gameCell.setAttribute(COORDINATE.Y, String(y));
 
             const cell_X = document.createElement('span');
             cell_X.setAttribute('class', `gameCell__marked gameCellMarked ${GAME_CELL_MARKED_X} ${HIDDEN}`);
-            cell_X.setAttribute(GAMER_PROPERTY_NAME, String(PLAYER.X));
-            cell_X.innerText = X;
+            cell_X.setAttribute(PLAYER_MARK, String(PLAYER.X));
+            cell_X.innerText = PLAYER_TEXT.X;
 
             const cell_O = document.createElement('span');
             cell_O.setAttribute('class', `gameCell__marked gameCellMarked ${GAME_CELL_MARKED_O} ${HIDDEN}`);
-            cell_O.setAttribute(GAMER_PROPERTY_NAME, String(PLAYER.O));
-            cell_O.innerText = O;
+            cell_O.setAttribute(PLAYER_MARK, String(PLAYER.O));
+            cell_O.innerText = PLAYER_TEXT.O;
 
             gameCell.appendChild(cell_X);
             gameCell.appendChild(cell_O);
@@ -51,17 +50,17 @@ export function getGameBoardCells(sizeBoard: number) {
 export function toggleClassAndAttributeGameBoard(
     htmlElement: HTMLElement,
 ) {
-    const isClassX = htmlElement.getAttribute(GAMER_PROPERTY_NAME) === String(PLAYER.X);
-    const isClassY = htmlElement.getAttribute(GAMER_PROPERTY_NAME) === String(PLAYER.O);
+    const isClassX = htmlElement.getAttribute(PLAYER_WALKS) === String(PLAYER.X);
+    const isClassY = htmlElement.getAttribute(PLAYER_WALKS) === String(PLAYER.O);
 
     if (isClassX) {
-        htmlElement.setAttribute(GAMER_PROPERTY_NAME, String(PLAYER.O));
+        htmlElement.setAttribute(PLAYER_WALKS, String(PLAYER.O));
 
         htmlElement.classList.remove(GAMER_X);
         htmlElement.classList.add(GAMER_O);
     }
     else if (isClassY) {
-        htmlElement.setAttribute(GAMER_PROPERTY_NAME, String(PLAYER.X));
+        htmlElement.setAttribute(PLAYER_WALKS, String(PLAYER.X));
 
         htmlElement.classList.add(GAMER_X);
         htmlElement.classList.remove(GAMER_O);
@@ -75,12 +74,15 @@ export function markCell(currentGameCell: HTMLElement, player: PLAYER) {
     const markHtmlElements = [...currentGameCell?.children as unknown as HTMLElement[]];
 
     for (const currentMarkHtmlElement of markHtmlElements) {
-        const isMark_X = currentMarkHtmlElement.getAttribute(GAMER_PROPERTY_NAME) === String(PLAYER.X);
-        const isMark_O = currentMarkHtmlElement.getAttribute(GAMER_PROPERTY_NAME) === String(PLAYER.O);
+        const isMark_X = currentMarkHtmlElement.getAttribute(PLAYER_MARK) === String(PLAYER.X);
+        const isMark_O = currentMarkHtmlElement.getAttribute(PLAYER_MARK) === String(PLAYER.O);
         
         switch (player) {
             case PLAYER.X: {
                 if (isMark_X) {
+                    currentGameCell.setAttribute(CELL_MARK, String(PLAYER.X));
+                    currentGameCell.classList.add(CELL_MARK);
+
                     currentMarkHtmlElement.classList.remove(HIDDEN);
                 }
                 else if (isMark_O) {
@@ -91,6 +93,9 @@ export function markCell(currentGameCell: HTMLElement, player: PLAYER) {
             }
             case PLAYER.O: {
                 if (isMark_O) {
+                    currentGameCell.setAttribute(CELL_MARK, String(PLAYER.O));
+                    currentGameCell.classList.add(CELL_MARK);
+
                     currentMarkHtmlElement.classList.remove(HIDDEN);
                 }
                 else if (isMark_X) {
@@ -107,5 +112,5 @@ export function markCell(currentGameCell: HTMLElement, player: PLAYER) {
 }
 
 export function getPlayerMoved(gameBoard: HTMLElement): PLAYER {
-    return Number(gameBoard.getAttribute(GAMER_PROPERTY_NAME));
+    return Number(gameBoard.getAttribute(PLAYER_WALKS));
 }

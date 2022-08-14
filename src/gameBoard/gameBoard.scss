@@ -33,6 +33,10 @@
   display: none !important;
 }
 
+.cell-mark {
+  cursor: default !important;
+}
+
 .gameCell__marked {
   width: 100%;
   height: 100%;

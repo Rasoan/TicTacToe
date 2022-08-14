@@ -15,12 +15,10 @@ import {
 import {getPlayerMoved, getGameBoardCells, markCell, toggleClassAndAttributeGameBoard} from "./src/gameBoard/gameBoard";
 
 import './src/style.scss';
-import {GAME_CELL, GAME_CELL_MARKED, GAMER_PROPERTY_NAME, GAMER_X} from "./src/consts";
+import {GAME_CELL, PLAYER_WALKS, GAMER_X, CELL_MARK, PLAYER_MARK} from "./src/consts";
 import {PLAYER} from "./src/gameBoard/declaration/gameBoard";
 
 {
-
-
     const rootElement = document.getElementById(ROOT_ID) as HTMLElement | null;
     const playingFieldDimension = document.getElementById(PLAYING_FIELD_DIMENSION_ID) as HTMLInputElement | null;
     const winningStreakDimension = document.getElementById(WINNING_STREAK_DIMENSION_ID) as HTMLInputElement | null;
@@ -58,7 +56,7 @@ import {PLAYER} from "./src/gameBoard/declaration/gameBoard";
 
     gameBoard.setAttribute('id', GAME_BOARD_ID);
     gameBoard.setAttribute('class', `gameBoard gameBoardTable ${GAMER_X}`);
-    gameBoard.setAttribute(GAMER_PROPERTY_NAME, String(PLAYER.X));
+    gameBoard.setAttribute(PLAYER_WALKS, String(PLAYER.X));
 
     const gameBoardCellsArray = getGameBoardCells(9);
 
@@ -73,33 +71,31 @@ import {PLAYER} from "./src/gameBoard/declaration/gameBoard";
 
         gameBoard.appendChild(gameBoardRow);
     }
-    // todo: здесь и ниже тестов нет
+
     gameBoard.addEventListener('click', function (event: MouseEvent) {
-            const isCellClicked = (event.target as HTMLElement)?.classList?.contains(GAME_CELL_MARKED);
+        const currentGameCell = (event.target as HTMLElement).closest(`.${GAME_CELL}`) as HTMLElement | null;
+        const isCellClicked = !!(event.target as HTMLElement)?.getAttribute(PLAYER_MARK);
+        const isMarkedCell = !!currentGameCell?.getAttribute(CELL_MARK);
 
-            if (!isCellClicked) {
-                return;
-            }
-
-            const movedPlayer: PLAYER = getPlayerMoved(this);
-
-            const currentGameCell = (event.target as HTMLElement).closest(`.${GAME_CELL}`) as HTMLElement;
-
-            if (currentGameCell) {
-                markCell(currentGameCell, movedPlayer);
-            }
-            else {
-                console.error('currentGameCell is not defined!')
-            }
-
-            toggleClassAndAttributeGameBoard(this);
+        if (!isCellClicked || isMarkedCell) {
+            return;
         }
-    )
-    ;
+
+        const movedPlayer: PLAYER = getPlayerMoved(this);
+
+        if (currentGameCell) {
+            markCell(currentGameCell, movedPlayer);
+        } else {
+            console.error('currentGameCell is not defined!')
+        }
+
+        toggleClassAndAttributeGameBoard(this);
+    });
 
     if (rootElement) {
         rootElement.appendChild(gameBoard);
-    } else {
+    }
+    else {
         console.error('rootElement is not defined!');
     }
 }
