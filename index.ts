@@ -12,11 +12,15 @@ import {
     addListenerForStartGame,
     initializeSettingsFormFromLocalStorage,
 } from "./src/SettingsForm/SettingsForm";
-import {getGameBoardCells} from "./src/gameBoard/gameBoard";
+import {getPlayerMoved, getGameBoardCells, markCell, toggleClassAndAttributeGameBoard} from "./src/gameBoard/gameBoard";
 
 import './src/style.scss';
+import {GAME_CELL, GAME_CELL_MARKED, GAMER_PROPERTY_NAME, GAMER_X} from "./src/consts";
+import {PLAYER} from "./src/gameBoard/declaration/gameBoard";
 
 {
+
+
     const rootElement = document.getElementById(ROOT_ID) as HTMLElement | null;
     const playingFieldDimension = document.getElementById(PLAYING_FIELD_DIMENSION_ID) as HTMLInputElement | null;
     const winningStreakDimension = document.getElementById(WINNING_STREAK_DIMENSION_ID) as HTMLInputElement | null;
@@ -24,15 +28,13 @@ import './src/style.scss';
 
     if (playingFieldDimension && winningStreakDimension) {
         initializeSettingsFormFromLocalStorage(playingFieldDimension, winningStreakDimension);
-    }
-    else {
+    } else {
         console.error('playingFieldDimension of winningStreakDimension is not defined!')
     }
 
     if (playingFieldDimension && winningStreakDimension) {
         addListenerForChangeMaxWinStreak(playingFieldDimension, winningStreakDimension);
-    }
-    else {
+    } else {
         console.error('playingFieldDimension or winningStreakDimension is not defined!');
     }
 
@@ -42,8 +44,7 @@ import './src/style.scss';
             playingFieldDimension,
             winningStreakDimension,
         );
-    }
-    else {
+    } else {
         console.error('settingsForm or playingFieldDimension or winningStreakDimension is not defined!');
     }
 
@@ -56,7 +57,8 @@ import './src/style.scss';
     gameBoard = document.createElement('div');
 
     gameBoard.setAttribute('id', GAME_BOARD_ID);
-    gameBoard.setAttribute('class', 'gameBoard gameBoardTable');
+    gameBoard.setAttribute('class', `gameBoard gameBoardTable ${GAMER_X}`);
+    gameBoard.setAttribute(GAMER_PROPERTY_NAME, String(PLAYER.X));
 
     const gameBoardCellsArray = getGameBoardCells(9);
 
@@ -71,11 +73,33 @@ import './src/style.scss';
 
         gameBoard.appendChild(gameBoardRow);
     }
+    // todo: здесь и ниже тестов нет
+    gameBoard.addEventListener('click', function (event: MouseEvent) {
+            const isCellClicked = (event.target as HTMLElement)?.classList?.contains(GAME_CELL_MARKED);
+
+            if (!isCellClicked) {
+                return;
+            }
+
+            const movedPlayer: PLAYER = getPlayerMoved(this);
+
+            const currentGameCell = (event.target as HTMLElement).closest(`.${GAME_CELL}`) as HTMLElement;
+
+            if (currentGameCell) {
+                markCell(currentGameCell, movedPlayer);
+            }
+            else {
+                console.error('currentGameCell is not defined!')
+            }
+
+            toggleClassAndAttributeGameBoard(this);
+        }
+    )
+    ;
 
     if (rootElement) {
         rootElement.appendChild(gameBoard);
-    }
-    else {
+    } else {
         console.error('rootElement is not defined!');
     }
 }
