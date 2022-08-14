@@ -30,17 +30,19 @@
 }
 
 .hidden {
-  display: none;
+  display: none !important;
 }
 
 .gameCell__marked {
   width: 100%;
   height: 100%;
+  display: flex;
   justify-content: center;
   align-items: center;
   font-size: 34px;
+  text-align: center;
 }
 
 .gamer_X .gameCell:hover .gameCellMarked_X, .gamer_O .gameCell:hover .gameCellMarked_O {
-  display: flex;
+  display: flex !important;
 }

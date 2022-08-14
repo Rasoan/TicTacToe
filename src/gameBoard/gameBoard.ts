@@ -27,12 +27,12 @@ export function getGameBoardCells(sizeBoard: number) {
             gameCell.setAttribute(Y_COORDINATE, String(y));
 
             const cell_X = document.createElement('span');
-            cell_X.setAttribute('class', `gameCell__marked gameCellMarked ${HIDDEN} ${GAME_CELL_MARKED_X}`);
+            cell_X.setAttribute('class', `gameCell__marked gameCellMarked ${GAME_CELL_MARKED_X} ${HIDDEN}`);
             cell_X.setAttribute(GAMER_PROPERTY_NAME, String(PLAYER.X));
             cell_X.innerText = X;
 
             const cell_O = document.createElement('span');
-            cell_O.setAttribute('class', `gameCell__marked gameCellMarked ${HIDDEN} ${GAME_CELL_MARKED_O}`);
+            cell_O.setAttribute('class', `gameCell__marked gameCellMarked ${GAME_CELL_MARKED_O} ${HIDDEN}`);
             cell_O.setAttribute(GAMER_PROPERTY_NAME, String(PLAYER.O));
             cell_O.innerText = O;
 
