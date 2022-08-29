@@ -16,7 +16,7 @@ import {getPlayerMoved, getGameBoardCells, markCell, toggleClassAndAttributeGame
 
 import './src/style.scss';
 import {GAME_CELL, PLAYER_WALKS, GAMER_X, CELL_MARK, PLAYER_MARK} from "./src/consts";
-import {PLAYER} from "./src/gameBoard/declaration/gameBoard";
+import {PLAYER} from "./src/GameBoardState/declaration/GameBoardState";
 
 {
     const rootElement = document.getElementById(ROOT_ID) as HTMLElement | null;
@@ -58,7 +58,7 @@ import {PLAYER} from "./src/gameBoard/declaration/gameBoard";
     gameBoard.setAttribute('class', `gameBoard gameBoardTable ${GAMER_X}`);
     gameBoard.setAttribute(PLAYER_WALKS, String(PLAYER.X));
 
-    const gameBoardCellsArray = getGameBoardCells(9);
+    const gameBoardCellsArray = getGameBoardCells(5);
 
     for (const currentRow of gameBoardCellsArray) {
         const gameBoardRow = document.createElement('div');

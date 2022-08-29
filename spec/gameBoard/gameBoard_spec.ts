@@ -10,7 +10,7 @@ import {
    GAMER_X,
    HIDDEN, CELL_MARK, PLAYER_MARK,
 } from "../../src/consts";
-import {COORDINATE, PLAYER, PLAYER_TEXT} from "../../src/gameBoard/declaration/gameBoard";
+import {COORDINATE, PLAYER} from "../../src/GameBoardState/declaration/GameBoardState";
 
 describe('gameBoard', () => {
    it('getGameBoard', () => {
@@ -47,7 +47,7 @@ describe('gameBoard', () => {
             expect(mark_X.classList.contains(GAME_CELL_MARKED_X))
                 .toBeTruthy();
             expect(mark_X.innerText)
-                .toBe(PLAYER_TEXT.X);
+                .toBe(PLAYER.X);
             expect(mark_X.classList.contains(GAME_CELL_MARKED_O))
                 .toBeFalsy();
             expect(mark_X.classList.contains(HIDDEN))
@@ -61,7 +61,7 @@ describe('gameBoard', () => {
             expect(mark_O.classList.contains(GAME_CELL_MARKED_O))
                 .toBeTruthy();
             expect(mark_O.innerText)
-                .toBe(PLAYER_TEXT.O);
+                .toBe(PLAYER.O);
             expect(mark_O.classList.contains(GAME_CELL_MARKED_X))
                 .toBeFalsy();
             expect(mark_O.classList.contains(HIDDEN))
@@ -105,12 +105,12 @@ describe('gameBoard', () => {
       const mark_X = document.createElement('span');
       mark_X.setAttribute('class', `gameCell__marked gameCellMarked ${HIDDEN} ${GAME_CELL_MARKED_X}`);
       mark_X.setAttribute(PLAYER_MARK, String(PLAYER.X));
-      mark_X.innerText = PLAYER_TEXT.X;
+      mark_X.innerText = PLAYER.X;
 
       const mark_O = document.createElement('span');
       mark_O.setAttribute('class', `gameCell__marked gameCellMarked ${HIDDEN} ${GAME_CELL_MARKED_O}`);
       mark_O.setAttribute(PLAYER_MARK, String(PLAYER.O));
-      mark_O.innerText = PLAYER_TEXT.O;
+      mark_O.innerText = PLAYER.O;
 
       gameCell.appendChild(mark_X);
       gameCell.appendChild(mark_O);
@@ -134,7 +134,7 @@ describe('gameBoard', () => {
       expect(markHtmlElements[0].classList.contains(GAME_CELL_MARKED_X))
           .toBeTruthy();
       expect(markHtmlElements[0].innerText)
-          .toBe(PLAYER_TEXT.X);
+          .toBe(PLAYER.X);
       expect(markHtmlElements[0].classList.contains(GAME_CELL_MARKED_O))
           .toBeFalsy();
       expect(markHtmlElements[0].classList.contains(HIDDEN))
@@ -168,7 +168,7 @@ describe('gameBoard', () => {
       expect(markHtmlElements[0].classList.contains(GAME_CELL_MARKED_O))
           .toBeTruthy();
       expect(markHtmlElements[0].innerText)
-          .toBe(PLAYER_TEXT.O);
+          .toBe(PLAYER.O);
       expect(markHtmlElements[0].classList.contains(GAME_CELL_MARKED_X))
           .toBeFalsy();
       expect(markHtmlElements[0].classList.contains(HIDDEN))
