@@ -18,6 +18,7 @@ import {
 } from "./gameBoardState_utils";
 
 import {
+    IMarkInformation,
     ORIENTATION,
     PLAYER,
     WINNER,
@@ -111,9 +112,9 @@ export default class GameBoardState {
         return this._board.length * this._board.length;
     }
 
-    public addMark(coordinate: ICoordinate): void {
+    public addMark(coordinate: ICoordinate): IMarkInformation | void {
         const {
-            _playerWalks,
+            _playerWalks: playerWalks,
             _board: board,
             _winnerInformation: winnerInformation,
         } = this;
@@ -142,11 +143,11 @@ export default class GameBoardState {
         if (isNotAlreadyMarkedCell) {
             // todo: здесь костыль, какой-то не понятный баг с сетом значения в клеточку
             const selectRow = [...board[y]];
-            selectRow[x] = _playerWalks;
+            selectRow[x] = playerWalks;
             board[y] = selectRow;
 
             const isVictory = this._checkForVictory({x, y});
-            const isGameEndDraw = _checkIsCanMovie(this.countSteps, board.length * board.length);
+            const isCanMovie = _checkIsCanMovie(this.countSteps, board.length * board.length);
 
             if (isVictory) {
                 this._handleEndGame(this.winnerInformation);
@@ -154,7 +155,7 @@ export default class GameBoardState {
                 return;
             }
 
-            if (!isGameEndDraw) {
+            if (!isCanMovie) {
                 winnerInformation.winner = WINNER.DRAW;
 
                 this._handleEndGame(this.winnerInformation);
@@ -162,7 +163,11 @@ export default class GameBoardState {
                 return;
             }
 
-            this._playerWalks = _togglePlayer(_playerWalks);
+            this._playerWalks = _togglePlayer(playerWalks);
+
+            return {
+                playerWalks,
+            }
         }
         else {
             const errorText = 'Error! Already marked cell!!';

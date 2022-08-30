@@ -18,6 +18,10 @@ export interface ICoordinate {
     y: number;
 }
 
+export interface IMarkInformation {
+    playerWalks: PLAYER.X | PLAYER.O;
+}
+
 export const enum PLAYER {
     _VOID_ = '',
     X = 'x',

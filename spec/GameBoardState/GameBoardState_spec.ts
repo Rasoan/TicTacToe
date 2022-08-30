@@ -1,15 +1,8 @@
 'use strict'
 
 import GameBoardState from "../../src/GameBoardState/GameBoardState";
-import type {
-    IWinnerInformation
-} from "../../src/GameBoardState/declaration/GameBoardState";
-
-import {
-    ORIENTATION,
-    PLAYER,
-    WINNER
-} from "../../src/GameBoardState/declaration/GameBoardState";
+import type {IMarkInformation, IWinnerInformation} from "../../src/GameBoardState/declaration/GameBoardState";
+import {ORIENTATION, PLAYER, WINNER} from "../../src/GameBoardState/declaration/GameBoardState";
 
 describe('GameBoardState', () => {
     describe('constructor', () => {
@@ -202,6 +195,8 @@ describe('GameBoardState', () => {
 
     describe('addMark', () => {
         it('Valid mark', () => {
+            let expectMarkInformation: IMarkInformation | void;
+            let toBeMarkInformation: IMarkInformation | void;
             let expectBoard = [
                 [PLAYER._VOID_, PLAYER._VOID_, PLAYER._VOID_],
                 [PLAYER._VOID_, PLAYER._VOID_, PLAYER._VOID_],
@@ -212,7 +207,10 @@ describe('GameBoardState', () => {
             expect(gameBoardState.board)
                 .toEqual(expectBoard);
 
-            gameBoardState.addMark({x: 1, y: 1});
+            expectMarkInformation = {
+                playerWalks: PLAYER.X,
+            };
+            toBeMarkInformation = gameBoardState.addMark({x: 1, y: 1});
             expectBoard = [
                 [PLAYER.X, PLAYER._VOID_, PLAYER._VOID_],
                 [PLAYER._VOID_, PLAYER._VOID_, PLAYER._VOID_],
@@ -222,8 +220,14 @@ describe('GameBoardState', () => {
             expect(gameBoardState.board)
                 .toEqual(expectBoard)
             ;
+            expect(toBeMarkInformation)
+                .toEqual(expectMarkInformation)
+            ;
 
-            gameBoardState.addMark({x: 3, y: 2});
+            expectMarkInformation = {
+                playerWalks: PLAYER.O,
+            };
+            toBeMarkInformation = gameBoardState.addMark({x: 3, y: 2});
             expectBoard = [
                 [PLAYER.X, PLAYER._VOID_, PLAYER._VOID_],
                 [PLAYER._VOID_, PLAYER._VOID_, PLAYER.O],
@@ -233,8 +237,15 @@ describe('GameBoardState', () => {
             expect(gameBoardState.board)
                 .toEqual(expectBoard)
             ;
+            expect(toBeMarkInformation)
+                .toEqual(expectMarkInformation)
+            ;
 
-            gameBoardState.addMark({x: 3, y: 3});
+            expectMarkInformation = {
+                playerWalks: PLAYER.X,
+            };
+            toBeMarkInformation = gameBoardState.addMark({x: 3, y: 3});
+
             expectBoard = [
                 [PLAYER.X, PLAYER._VOID_, PLAYER._VOID_],
                 [PLAYER._VOID_, PLAYER._VOID_, PLAYER.O],
@@ -244,8 +255,14 @@ describe('GameBoardState', () => {
             expect(gameBoardState.board)
                 .toEqual(expectBoard)
             ;
+            expect(toBeMarkInformation)
+                .toEqual(expectMarkInformation)
+            ;
 
-            gameBoardState.addMark({x: 2, y: 2});
+            expectMarkInformation = {
+                playerWalks: PLAYER.O,
+            };
+            toBeMarkInformation = gameBoardState.addMark({x: 2, y: 2});
             expectBoard = [
                 [PLAYER.X, PLAYER._VOID_, PLAYER._VOID_],
                 [PLAYER._VOID_, PLAYER.O, PLAYER.O],
@@ -254,6 +271,9 @@ describe('GameBoardState', () => {
 
             expect(gameBoardState.board)
                 .toEqual(expectBoard)
+            ;
+            expect(toBeMarkInformation)
+                .toEqual(expectMarkInformation)
             ;
         });
 
