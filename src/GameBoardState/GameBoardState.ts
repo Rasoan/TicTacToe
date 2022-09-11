@@ -242,7 +242,7 @@ export default class GameBoardState {
         return false;
     }
 
-    public restartGameBoard() {
+    public resetGame() {
         this._playerWalks = this._firstPlayerWalks;
         this._board = _getDefaultBordValues(this.size);
         this._winnerInformation = {

@@ -1,7 +1,7 @@
 'use strict';
 
 import {
-    PLAYING_FIELD_DIMENSION_ID,
+    PLAYING_FIELD_DIMENSION_ID, RELOAD_GAME_BUTTON_ID,
     ROOT_ID,
     SETTINGS_FORM_ID,
     WINNING_STREAK_DIMENSION_ID,
@@ -12,7 +12,7 @@ import {
     initializeSettingsFormFromLocalStorage,
 } from "./src/SettingsForm/SettingsForm";
 import {
-    createGameBoardHtmlElement, handleEndGame, onClickGameBoard
+    createGameBoardHtmlElement, handleEndGame, handleReloadGame, onClickGameBoard
 } from "./src/gameBoardUi/gameBoardUi";
 
 import './src/style.scss';
@@ -21,10 +21,10 @@ import GameBoardState from "./src/GameBoardState/GameBoardState";
 import {getValueForLocalStorage, LocalStorageKeys} from "./src/localStorage/localStorage";
 
 {
-    const rootElement = document.getElementById(ROOT_ID) as HTMLElement | null;
     const playingFieldDimension = document.getElementById(PLAYING_FIELD_DIMENSION_ID) as HTMLInputElement | null;
     const winningStreakDimension = document.getElementById(WINNING_STREAK_DIMENSION_ID) as HTMLInputElement | null;
     const settingsForm = document.getElementById(SETTINGS_FORM_ID) as HTMLFormElement | null;
+    const buttonReloadGame = document.getElementById(RELOAD_GAME_BUTTON_ID) as HTMLElement | null;
 
     if (playingFieldDimension && winningStreakDimension) {
         initializeSettingsFormFromLocalStorage(playingFieldDimension, winningStreakDimension);
@@ -52,7 +52,7 @@ import {getValueForLocalStorage, LocalStorageKeys} from "./src/localStorage/loca
 
     let gameBoardState = gameBoardStateJSON
         ? GameBoardState.fromJSON(gameBoardStateJSON)
-        : new GameBoardState({firstPlayerWalks: PLAYER.X, size: 3, winningStreak: 3})
+        : new GameBoardState({firstPlayerWalks: PLAYER.X, size: 9, winningStreak: 5})
     ;
 
     const gameBoard = createGameBoardHtmlElement(gameBoardState);
@@ -63,10 +63,5 @@ import {getValueForLocalStorage, LocalStorageKeys} from "./src/localStorage/loca
 
     gameBoardState.subscribeToEndGame(handleEndGame);
 
-    if (rootElement) {
-        rootElement.appendChild(gameBoard);
-    }
-    else {
-        console.error('rootElement is not defined!');
-    }
+    buttonReloadGame?.addEventListener('click', () => handleReloadGame(gameBoardState));
 }

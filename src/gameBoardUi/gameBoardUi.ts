@@ -29,7 +29,7 @@ import {
     PLAYER,
     WINNER
 } from "../GameBoardState/declaration/GameBoardState";
-import {GAME_BOARD_HTML_ELEMENT_ID} from "../constants/constants";
+import {GAME_BOARD_HTML_ELEMENT_ID, ROOT_ID} from "../constants/constants";
 import GameBoardState from "../GameBoardState/GameBoardState";
 import {LocalStorageKeys, setValueForLocalStorage} from "../localStorage/localStorage";
 
@@ -140,6 +140,7 @@ export function createGameBoardHtmlElement(
         winnerDirectionLine,
         winningLine,
     } = winnerInformation;
+    const rootElement = document.getElementById(ROOT_ID) as HTMLElement | null;
 
     const isEndGame = winner === WINNER.PLAYER_X || winner === WINNER.PLAYER_O || winner === WINNER.DRAW;
     const isWinGame =  winner === WINNER.PLAYER_X || winner === WINNER.PLAYER_O;
@@ -147,10 +148,17 @@ export function createGameBoardHtmlElement(
     let gameBoard = document.getElementById(GAME_BOARD_HTML_ELEMENT_ID) as HTMLElement | null;
 
     if (gameBoard) {
-        gameBoard.remove();
+        gameBoard.innerHTML = '';
+
+        while (gameBoard.attributes.length > 0) {
+            gameBoard.removeAttribute(gameBoard.attributes[0].name);
+        }
+    }
+    else {
+        gameBoard = document.createElement('div');
     }
 
-    gameBoard = document.createElement('div');
+
     const gameBoardCellsArray = createCellsArray(board);
 
     gameBoard.setAttribute('id', GAME_BOARD_HTML_ELEMENT_ID);
@@ -181,6 +189,13 @@ export function createGameBoardHtmlElement(
             winningLine,
             winnerDirectionLine,
         );
+    }
+
+    if (rootElement) {
+        rootElement.appendChild(gameBoard);
+    }
+    else {
+        console.error('rootElement is not defined!');
     }
 
     return gameBoard;
@@ -469,4 +484,12 @@ export function getGameBoardCellsArray(board: HTMLElement) {
     return rowsBoard.map((rowHtmlElement: HTMLElement) => {
         return [ ...rowHtmlElement.children as unknown as HTMLElement[] ];
     });
+}
+
+export function handleReloadGame(
+    gameBoardState: GameBoardState,
+) {
+    gameBoardState.resetGame();
+
+    createGameBoardHtmlElement(gameBoardState)
 }

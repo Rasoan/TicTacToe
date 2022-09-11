@@ -1211,7 +1211,7 @@ describe('GameBoardState', () => {
             gameBoardState.addMark({x: 3, y: 2,});
             gameBoardState.addMark({x: 4, y: 2,});
 
-            gameBoardState.restartGameBoard();
+            gameBoardState.resetGame();
 
             expect(gameBoardState.board)
                 .toEqual(expectBoard)
