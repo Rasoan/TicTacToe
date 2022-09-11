@@ -70,7 +70,7 @@ describe('GameBoardState', () => {
                 .toBe(PLAYER.X)
             ;
             expect(gameBoardState.winningStreak)
-                .toBe(3)
+                .toBe(5)
             ;
             expect(gameBoardState.winnerInformation)
                 .toEqual({

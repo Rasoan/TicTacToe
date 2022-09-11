@@ -47,8 +47,8 @@ export default class GameBoardState {
                 winnerDirectionLine: ORIENTATION._UNKNOWN_,
                 winningLine: [],
             },
-            winningStreak = 3,
             size = 3,
+            winningStreak,
             firstPlayerWalks = PLAYER.X,
         } = options;
 
@@ -66,11 +66,7 @@ export default class GameBoardState {
             this._playerWalks = firstPlayerWalks;
         }
 
-        if (winningStreak > this.numberOfMoves) {
-            throw new Error('WinningStreak not valid!')
-        }
-
-        this._winningStreak = winningStreak;
+        this._winningStreak = winningStreak && winningStreak <= this.size ? winningStreak: this.size;
         this._firstPlayerWalks = firstPlayerWalks;
         this._winnerInformation = winnerInformation;
     }

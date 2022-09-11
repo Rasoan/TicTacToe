@@ -13,6 +13,8 @@ export interface IWinnerInformation {
     winnerDirectionLine?: ORIENTATION;
 }
 
+export type IRequiredWinnerInformation = Required<IWinnerInformation>;
+
 export interface ICoordinate {
     x: number;
     y: number;
