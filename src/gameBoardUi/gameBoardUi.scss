@@ -1,0 +1,171 @@
+$marginVerticalRows: 20px;
+$marginHorizontalCell: 10px;
+$lineThickness: 3;
+$sizeCell: 45;
+$sizeLineDiagonal: 64; // вычислил вручную, не нашёл функцию получения корня (корень из($sizeCell^2 + $sizeCell^2))
+$colorX: black;
+$colorO: red;
+
+.gameBoard {
+  margin: 20px;
+  width: max-content;
+  padding: 10px;
+
+
+  &__row {
+    margin: $marginVerticalRows 0;
+    display: flex;
+  }
+}
+
+.gameBoard__cell {
+  margin: 0 $marginHorizontalCell;
+}
+
+.gameBoardCell {
+  position: relative;
+  width: #{$sizeCell}px;
+  height: #{$sizeCell}px;
+  background-color: #eeece9;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.gameBoardMark {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 34px;
+  text-align: center;
+}
+
+.mark {
+  &-x {
+    color: $colorX;
+  }
+
+  &-o {
+    color: $colorO;
+  }
+}
+
+.move_gamer_X .gameBoardCell:hover .mark-x,
+.move_gamer_O .gameBoardCell:hover .mark-o {
+  display: flex;
+}
+
+.gameBoard .cell-mark:hover {
+  cursor: default !important;
+}
+
+.disable .gameBoardCell:hover {
+  cursor: default !important;
+}
+
+.hidden {
+  display: none;
+}
+
+.move_gamer_X {
+  border-top: 8px solid $colorX;
+}
+
+.move_gamer_O {
+  border-top: 8px solid $colorO;
+}
+
+.draw {
+  border-left: 8px solid $colorX;
+  border-right: 8px solid $colorO;
+}
+
+.cell-victory-line:before, .cell-victory-line:after {
+  content: '';
+  position: absolute;
+  width: #{$lineThickness}px;
+}
+
+.winner_gamer_X .cell-victory-line:after, .winner_gamer_X .cell-victory-line:before {
+  background-color: $colorX;
+}
+
+.winner_gamer_O .cell-victory-line:after, .winner_gamer_O .cell-victory-line:before {
+  background-color: $colorO;
+}
+
+// direction vertical
+.direction-vertical:before, .direction-vertical:after {
+  height: calc(50% + #{$marginVerticalRows * 0.5});
+  transform: rotate(0deg);
+  left: 50%;
+}
+
+.direction-vertical:before {
+  top: 50%;
+}
+
+.direction-vertical:after {
+  bottom: 50%;
+}
+
+// direction horizontal
+.direction-horizontal:before, .direction-horizontal:after {
+  width: calc(50% + #{$marginVerticalRows * 0.5});
+  height: #{$lineThickness}px;
+  top: 50%;
+}
+
+.direction-horizontal:before {
+  right: 50%;
+}
+
+.direction-horizontal:after {
+  left: 50%;
+}
+
+// diagonal
+.direction-diagonal-right:before,
+.direction-diagonal-right:after,
+.direction-diagonal-left:before,
+.direction-diagonal-left:after {
+  height: #{$sizeLineDiagonal}px;
+}
+
+// direction diagonal-right
+.direction-diagonal-right:before, .direction-diagonal-right:after {
+  transform: rotate(45deg);
+}
+
+.direction-diagonal-right:before {
+  left: 0;
+  bottom: calc(-#{$sizeLineDiagonal * 0.5 - $lineThickness * 0.5}px);
+}
+
+.direction-diagonal-right:after {
+  right: 0;
+  top: calc(-#{$sizeLineDiagonal * 0.5 - $lineThickness * 0.5}px);
+}
+
+// direction diagonal-left
+.direction-diagonal-left:before, .direction-diagonal-left:after {
+  transform: rotate(-45deg);
+}
+
+.direction-diagonal-left:before {
+  left: 0;
+  top: calc(-#{$sizeLineDiagonal * 0.5 - $lineThickness * 0.5}px);
+}
+
+.direction-diagonal-left:after {
+  right: 0;
+  bottom: calc(-#{$sizeLineDiagonal * 0.5 - $lineThickness * 0.5}px);
+}

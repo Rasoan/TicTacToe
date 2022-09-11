@@ -1,7 +1,6 @@
 'use strict';
 
 import {
-    GAME_BOARD_ID,
     PLAYING_FIELD_DIMENSION_ID,
     ROOT_ID,
     SETTINGS_FORM_ID,
@@ -12,11 +11,14 @@ import {
     addListenerForStartGame,
     initializeSettingsFormFromLocalStorage,
 } from "./src/SettingsForm/SettingsForm";
-import {getPlayerMoved, getGameBoardCells, markCell, toggleClassAndAttributeGameBoard} from "./src/gameBoard/gameBoard";
+import {
+    createGameBoardHtmlElement, handleEndGame, onClickGameBoard
+} from "./src/gameBoardUi/gameBoardUi";
 
 import './src/style.scss';
-import {GAME_CELL, PLAYER_WALKS, GAMER_X, CELL_MARK, PLAYER_MARK} from "./src/consts";
 import {PLAYER} from "./src/GameBoardState/declaration/GameBoardState";
+import GameBoardState from "./src/GameBoardState/GameBoardState";
+import {getValueForLocalStorage, LocalStorageKeys} from "./src/localStorage/localStorage";
 
 {
     const rootElement = document.getElementById(ROOT_ID) as HTMLElement | null;
@@ -46,51 +48,20 @@ import {PLAYER} from "./src/GameBoardState/declaration/GameBoardState";
         console.error('settingsForm or playingFieldDimension or winningStreakDimension is not defined!');
     }
 
-    let gameBoard = document.getElementById(GAME_BOARD_ID) as HTMLElement | null;
+    const gameBoardStateJSON = getValueForLocalStorage(LocalStorageKeys.gameBoardStateKey);
 
-    if (gameBoard) {
-        gameBoard.remove();
-    }
+    let gameBoardState = gameBoardStateJSON
+        ? GameBoardState.fromJSON(gameBoardStateJSON)
+        : new GameBoardState({firstPlayerWalks: PLAYER.X, size: 3, winningStreak: 3})
+    ;
 
-    gameBoard = document.createElement('div');
+    const gameBoard = createGameBoardHtmlElement(gameBoardState);
 
-    gameBoard.setAttribute('id', GAME_BOARD_ID);
-    gameBoard.setAttribute('class', `gameBoard gameBoardTable ${GAMER_X}`);
-    gameBoard.setAttribute(PLAYER_WALKS, String(PLAYER.X));
-
-    const gameBoardCellsArray = getGameBoardCells(5);
-
-    for (const currentRow of gameBoardCellsArray) {
-        const gameBoardRow = document.createElement('div');
-
-        gameBoardRow.setAttribute('class', 'gameBoard__row');
-
-        for (const currentCell of currentRow) {
-            gameBoardRow.appendChild(currentCell);
-        }
-
-        gameBoard.appendChild(gameBoardRow);
-    }
-
-    gameBoard.addEventListener('click', function (event: MouseEvent) {
-        const currentGameCell = (event.target as HTMLElement).closest(`.${GAME_CELL}`) as HTMLElement | null;
-        const isCellClicked = !!(event.target as HTMLElement)?.getAttribute(PLAYER_MARK);
-        const isMarkedCell = !!currentGameCell?.getAttribute(CELL_MARK);
-
-        if (!isCellClicked || isMarkedCell) {
-            return;
-        }
-
-        const movedPlayer: PLAYER = getPlayerMoved(this);
-
-        if (currentGameCell) {
-            markCell(currentGameCell, movedPlayer);
-        } else {
-            console.error('currentGameCell is not defined!')
-        }
-
-        toggleClassAndAttributeGameBoard(this);
+    gameBoard.addEventListener('click', function (event) {
+        onClickGameBoard.call(this, event, gameBoardState);
     });
+
+    gameBoardState.subscribeToEndGame(handleEndGame);
 
     if (rootElement) {
         rootElement.appendChild(gameBoard);

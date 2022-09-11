@@ -3,11 +3,10 @@
 export const enum LocalStorageKeys {
     playingFieldDimension = 'playingFieldDimension',
     winningStreakDimension = 'winningStreakDimension',
+    gameBoardStateKey = 'gameBoardState',
 }
 
-export function setValueForLocalStorage(data: { key: LocalStorageKeys, value: any }) {
-    const {key, value} = data;
-
+export function setValueForLocalStorage(key: LocalStorageKeys, value: any) {
     localStorage.setItem(key, value);
 }
 

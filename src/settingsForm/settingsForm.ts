@@ -37,17 +37,13 @@ function _setSettingsInLocalStorage(
     const winningStreakDimensionValue = winningStreakDimension?.value;
 
     setValueForLocalStorage(
-        {
-            key: LocalStorageKeys.playingFieldDimension,
-            value: playingFieldDimensionValue,
-        },
+        LocalStorageKeys.playingFieldDimension,
+        playingFieldDimensionValue,
     );
 
     setValueForLocalStorage(
-        {
-            key: LocalStorageKeys.winningStreakDimension,
-            value: winningStreakDimensionValue,
-        },
+        LocalStorageKeys.winningStreakDimension,
+        winningStreakDimensionValue,
     );
 }
 
