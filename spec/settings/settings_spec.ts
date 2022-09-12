@@ -3,7 +3,7 @@
 import {PLAYING_FIELD_DIMENSION_ID, WINNING_STREAK_DIMENSION_ID} from "../../src/constants/constants";
 import {
    addListenerForChangeMaxWinStreak,
-   addListenerForStartGame,
+   addListenerForHtmlForm,
    initializeSettingsFormFromLocalStorage
 } from "../../src/settingsForm/settingsForm";
 import {getValueForLocalStorage, LocalStorageKeys, setValueForLocalStorage} from "../../src/localStorage/localStorage";
@@ -46,70 +46,5 @@ describe('settingsForm', () => {
 
       expect(playingFieldDimension.getAttribute('value'))
           .toBe(winningStreakDimension.getAttribute('max'));
-   });
-
-   it('initializeSettingsFormFromLocalStorage', () => {
-      const playingFieldDimension = document.createElement('input') as HTMLInputElement;
-      const winningStreakDimension = document.createElement('input') as HTMLInputElement;
-
-      expect(playingFieldDimension.getAttribute('value'))
-          .not.toBe('7');
-      expect(winningStreakDimension.getAttribute('value'))
-          .not.toBe('5');
-
-      setValueForLocalStorage(LocalStorageKeys.playingFieldDimension, '7');
-      setValueForLocalStorage(LocalStorageKeys.winningStreakDimension, '5');
-
-
-      expect(playingFieldDimension.getAttribute('value'))
-          .not.toBe('7');
-      expect(winningStreakDimension.getAttribute('value'))
-          .not.toBe('5');
-
-      initializeSettingsFormFromLocalStorage(playingFieldDimension, winningStreakDimension);
-
-      expect(playingFieldDimension.getAttribute('value'))
-          .toBe('7');
-      expect(winningStreakDimension.getAttribute('value'))
-          .toBe('5');
-      expect(winningStreakDimension.getAttribute('max'))
-          .toBe('7');
-   });
-
-   it('addListenerForStartGame', () => {
-      setValueForLocalStorage(LocalStorageKeys.playingFieldDimension, null);
-      setValueForLocalStorage(LocalStorageKeys.winningStreakDimension, null);
-
-      const playingFieldDimension = document.createElement('input') as HTMLInputElement;
-      const winningStreakDimension = document.createElement('input') as HTMLInputElement;
-      const settingsForm = document.createElement('form') as HTMLFormElement;
-
-      playingFieldDimension.value = '9';
-      winningStreakDimension.value = '7';
-
-      addListenerForStartGame(settingsForm, playingFieldDimension, winningStreakDimension);
-
-      let playingFieldDimensionValue = getValueForLocalStorage(LocalStorageKeys.playingFieldDimension);
-      let winningStreakDimensionValue = getValueForLocalStorage(LocalStorageKeys.winningStreakDimension);
-
-      expect(playingFieldDimensionValue)
-          .not.toBe('9')
-      ;
-      expect(winningStreakDimensionValue)
-          .not.toBe('7')
-      ;
-
-      const eventSubmit = new Event('submit');
-      settingsForm.dispatchEvent(eventSubmit);
-
-      playingFieldDimensionValue = getValueForLocalStorage(LocalStorageKeys.playingFieldDimension);
-      winningStreakDimensionValue = getValueForLocalStorage(LocalStorageKeys.winningStreakDimension);
-
-      expect(playingFieldDimensionValue)
-          .toBe('9')
-      ;
-      expect(winningStreakDimensionValue)
-          .toBe('7')
-      ;
    });
 });

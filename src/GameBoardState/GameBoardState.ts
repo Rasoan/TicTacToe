@@ -29,8 +29,8 @@ export default class GameBoardState {
     private _playerWalks: PLAYER.X | PLAYER.O = PLAYER.X;
     private _winnerInformation: IWinnerInformation;
 
-    private readonly _winningStreak: number;
-    private readonly _firstPlayerWalks: PLAYER.X | PLAYER.O = PLAYER.X;
+    private _winningStreak: number;
+    private _firstPlayerWalks: PLAYER.X | PLAYER.O = PLAYER.X;
 
     private _handleEndGame = (winnerInformation: IWinnerInformation) => { console.error('Method handleEndGame is not defined!', winnerInformation) };
 
@@ -250,6 +250,39 @@ export default class GameBoardState {
             winnerDirectionLine: ORIENTATION._UNKNOWN_,
             winningLine: [],
         };
+    }
+
+    public start(options: IGameBoardStateOptions = {}) {
+        const {
+            board,
+            playerWalks,
+            winnerInformation = {
+                winner: WINNER._UNKNOWN_,
+                winnerDirectionLine: ORIENTATION._UNKNOWN_,
+                winningLine: [],
+            },
+            size = 3,
+            winningStreak,
+            firstPlayerWalks = PLAYER.X,
+        } = options;
+
+        if (board && playerWalks) {
+            const isValidBoard = _checkIsValidBoardFormat(board);
+
+            if (!isValidBoard) {
+                throw new TypeError(`Board is not valid! {board: ${board}}`);
+            }
+
+            this._board = board;
+            this._playerWalks = playerWalks;
+        } else {
+            this._board = _getDefaultBordValues(size);
+            this._playerWalks = firstPlayerWalks;
+        }
+
+        this._winningStreak = winningStreak && winningStreak <= this.size ? winningStreak: this.size;
+        this._firstPlayerWalks = firstPlayerWalks;
+        this._winnerInformation = winnerInformation;
     }
 
     public toJSON(): string {

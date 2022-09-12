@@ -5,6 +5,10 @@ import {
     getValueForLocalStorage,
     setValueForLocalStorage,
 } from "../localStorage/localStorage";
+import {PLAYING_FIELD_DIMENSION_ID, WINNING_STREAK_DIMENSION_ID} from "../constants/constants";
+import GameBoardState from "../GameBoardState/GameBoardState";
+import {fillGameBoardHtmlElement, handleStartGame} from "../gameBoardUi/gameBoardUi";
+import {PLAYER} from "../GameBoardState/declaration/GameBoardState";
 
 export function addListenerForChangeMaxWinStreak(
     playingFieldDimension: HTMLInputElement,
@@ -20,41 +24,42 @@ export function addListenerForChangeMaxWinStreak(
 export function initializeSettingsFormFromLocalStorage(
     playingFieldDimension: HTMLInputElement,
     winningStreakDimension: HTMLInputElement,
+    gameBoardState: GameBoardState,
 ) {
-    const playingFieldDimensionValue = getValueForLocalStorage(LocalStorageKeys.playingFieldDimension);
-    const winningStreakDimensionValue = getValueForLocalStorage(LocalStorageKeys.winningStreakDimension);
+    const {
+        size: playingFieldDimensionValue,
+        winningStreak: winningStreakDimensionValue,
+    } = gameBoardState;
 
     playingFieldDimension.setAttribute('value', String(playingFieldDimensionValue));
     winningStreakDimension.setAttribute('value', String(winningStreakDimensionValue));
     winningStreakDimension.setAttribute('max', String(playingFieldDimensionValue));
 }
 
-function _setSettingsInLocalStorage(
-    playingFieldDimension: HTMLInputElement,
-    winningStreakDimension: HTMLInputElement,
-): void {
-    const playingFieldDimensionValue = playingFieldDimension?.value;
-    const winningStreakDimensionValue = winningStreakDimension?.value;
 
-    setValueForLocalStorage(
-        LocalStorageKeys.playingFieldDimension,
-        playingFieldDimensionValue,
-    );
-
-    setValueForLocalStorage(
-        LocalStorageKeys.winningStreakDimension,
-        winningStreakDimensionValue,
-    );
-}
-
-export function addListenerForStartGame(
+export function addListenerForHtmlForm(
     settingsForm: HTMLElement,
-    playingFieldDimension: HTMLInputElement,
-    winningStreakDimension: HTMLInputElement,
+    gameBoardHtmlElement: HTMLElement,
+    gameBoardState: GameBoardState,
 ): void {
     settingsForm.addEventListener('submit', (event: SubmitEvent) => {
         event.preventDefault();
 
-        _setSettingsInLocalStorage(playingFieldDimension, winningStreakDimension);
+        const playingFieldDimension = document.getElementById(PLAYING_FIELD_DIMENSION_ID) as HTMLInputElement | null;
+        const winningStreakDimension = document.getElementById(WINNING_STREAK_DIMENSION_ID) as HTMLInputElement | null;
+
+        if (!playingFieldDimension || !winningStreakDimension) {
+            throw new Error('playingFieldDimension || winningStreakDimension is not defined');
+        }
+
+        const size = Number(playingFieldDimension.value);
+        const winningStreak = Number(winningStreakDimension.value);
+
+        gameBoardState.start({
+            size,
+            winningStreak,
+        });
+
+        handleStartGame(gameBoardHtmlElement, gameBoardState)
     });
 }

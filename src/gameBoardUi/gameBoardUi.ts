@@ -29,7 +29,7 @@ import {
     PLAYER,
     WINNER
 } from "../GameBoardState/declaration/GameBoardState";
-import {GAME_BOARD_HTML_ELEMENT_ID, ROOT_ID} from "../constants/constants";
+import {GAME_BOARD_HTML_ELEMENT_ID} from "../constants/constants";
 import GameBoardState from "../GameBoardState/GameBoardState";
 import {LocalStorageKeys, setValueForLocalStorage} from "../localStorage/localStorage";
 
@@ -125,11 +125,10 @@ export function createCellsArray(board: PLAYER[][]): HTMLElement[][] {
     return gameBoardTable;
 }
 
-
-
-export function createGameBoardHtmlElement(
+export function fillGameBoardHtmlElement(
+    gameBoardHtmlElement: HTMLElement,
     gameBoardState: GameBoardState,
-): HTMLElement {
+) {
     const {
         winnerInformation,
         board,
@@ -140,35 +139,24 @@ export function createGameBoardHtmlElement(
         winnerDirectionLine,
         winningLine,
     } = winnerInformation;
-    const rootElement = document.getElementById(ROOT_ID) as HTMLElement | null;
 
     const isEndGame = winner === WINNER.PLAYER_X || winner === WINNER.PLAYER_O || winner === WINNER.DRAW;
     const isWinGame =  winner === WINNER.PLAYER_X || winner === WINNER.PLAYER_O;
 
-    let gameBoard = document.getElementById(GAME_BOARD_HTML_ELEMENT_ID) as HTMLElement | null;
-
-    if (gameBoard) {
-        gameBoard.innerHTML = '';
-
-        while (gameBoard.attributes.length > 0) {
-            gameBoard.removeAttribute(gameBoard.attributes[0].name);
-        }
+    if (gameBoardHtmlElement) {
+        _resetGameBoardHtmlElement(gameBoardHtmlElement);
     }
-    else {
-        gameBoard = document.createElement('div');
-    }
-
 
     const gameBoardCellsArray = createCellsArray(board);
 
-    gameBoard.setAttribute('id', GAME_BOARD_HTML_ELEMENT_ID);
-    gameBoard.setAttribute('class', `gameBoard`);
+    gameBoardHtmlElement.setAttribute('id', GAME_BOARD_HTML_ELEMENT_ID);
+    gameBoardHtmlElement.setAttribute('class', `gameBoard`);
 
     if (isEndGame) {
-        setWinnerForGameBoard(gameBoard, winner);
+        setWinnerForGameBoard(gameBoardHtmlElement, winner);
     }
     else {
-        togglePlayerWalksForGameBoard(gameBoard, playerWalks);
+        togglePlayerWalksForGameBoard(gameBoardHtmlElement, playerWalks);
     }
 
     for (const currentRow of gameBoardCellsArray) {
@@ -180,25 +168,16 @@ export function createGameBoardHtmlElement(
             gameBoardRow.appendChild(currentCell);
         }
 
-        gameBoard.appendChild(gameBoardRow);
+        gameBoardHtmlElement.appendChild(gameBoardRow);
     }
 
     if (isWinGame && winningLine && winnerDirectionLine) {
         crossOutWinningLine(
-            gameBoard,
+            gameBoardHtmlElement,
             winningLine,
             winnerDirectionLine,
         );
     }
-
-    if (rootElement) {
-        rootElement.appendChild(gameBoard);
-    }
-    else {
-        console.error('rootElement is not defined!');
-    }
-
-    return gameBoard;
 }
 
 export function markCell(cell: HTMLElement, player: PLAYER.X | PLAYER.O) {
@@ -386,13 +365,12 @@ function _markCellHtmlElement(cell: HTMLElement, player: PLAYER.X | PLAYER.O): v
     }
 }
 
-export function handleEndGame(winnerInformation: IWinnerInformation) {
+export function handleEndGame(gameBoardHtmlElement: HTMLElement, winnerInformation: IWinnerInformation) {
     const {
         winner,
         winnerDirectionLine,
         winningLine,
     } = winnerInformation;
-    const gameBoardHtmlElement = document.getElementById(GAME_BOARD_HTML_ELEMENT_ID);
 
     if (!gameBoardHtmlElement) {
         throw new Error('gameBoardHtmlElement is not found!');
@@ -487,9 +465,51 @@ export function getGameBoardCellsArray(board: HTMLElement) {
 }
 
 export function handleReloadGame(
+    gameBoardHtmlElement: HTMLElement,
     gameBoardState: GameBoardState,
 ) {
     gameBoardState.resetGame();
 
-    createGameBoardHtmlElement(gameBoardState)
+    fillGameBoardHtmlElement(gameBoardHtmlElement, gameBoardState);
+
+    setValueForLocalStorage(LocalStorageKeys.gameBoardStateKey, gameBoardState.toJSON());
+}
+
+export function handleStartGame(
+    gameBoardHtmlElement: HTMLElement,
+    options: {
+        size?: number,
+        firstPlayerWalks?: PLAYER.X | PLAYER.O,
+        winningStreak?: number,
+    }
+) {
+    const {
+        size = 3,
+        winningStreak = 3,
+        firstPlayerWalks = PLAYER.X,
+    } = options;
+
+    const gameBoardState = new GameBoardState({
+        size,
+        firstPlayerWalks,
+        winningStreak,
+    });
+
+    _resetGameBoardHtmlElement(gameBoardHtmlElement);
+
+    gameBoardState.resetGame();
+
+    fillGameBoardHtmlElement(gameBoardHtmlElement, gameBoardState);
+
+    setValueForLocalStorage(LocalStorageKeys.gameBoardStateKey, gameBoardState.toJSON());
+
+    return gameBoardState;
+}
+
+function _resetGameBoardHtmlElement(gameBoard: HTMLElement) {
+    gameBoard.innerHTML = '';
+
+    while (gameBoard.attributes.length > 0) {
+        gameBoard.removeAttribute(gameBoard.attributes[0].name);
+    }
 }

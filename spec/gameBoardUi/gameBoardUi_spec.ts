@@ -3,7 +3,7 @@
 import {
    createCell,
    createCellHtmlElement,
-   createGameBoardHtmlElement, crossOutWinningLine, getGameBoardCellsArray,
+   fillGameBoardHtmlElement, crossOutWinningLine, getGameBoardCellsArray,
    markCell,
 } from "../../src/gameBoardUi/gameBoardUi";
 import {
@@ -35,30 +35,33 @@ import {
 import GameBoardState from "../../src/GameBoardState/GameBoardState";
 
 describe('gameBoardUi', () => {
+   const gameBoardHtmlElement = document.createElement('div');
+
    describe('createGameBoardUi', () => {
       it('Create new Game (move player X)', () => {
          const gameBoardState = new GameBoardState({ size: 5, firstPlayerWalks: PLAYER.X });
 
-         const gameBoardUi = createGameBoardHtmlElement(
-             gameBoardState
+         fillGameBoardHtmlElement(
+             gameBoardHtmlElement,
+             gameBoardState,
          );
 
-         expect(gameBoardUi.classList.contains(MOVE_GAMER_O))
+         expect(gameBoardHtmlElement.classList.contains(MOVE_GAMER_O))
              .toBeFalsy()
          ;
-         expect(gameBoardUi.classList.contains(MOVE_GAMER_X))
+         expect(gameBoardHtmlElement.classList.contains(MOVE_GAMER_X))
              .toBeTruthy()
          ;
-         expect(gameBoardUi.classList.contains(WINNER_GAMER_X))
+         expect(gameBoardHtmlElement.classList.contains(WINNER_GAMER_X))
              .toBeFalsy()
          ;
-         expect(gameBoardUi.classList.contains(WINNER_GAMER_O))
+         expect(gameBoardHtmlElement.classList.contains(WINNER_GAMER_O))
              .toBeFalsy()
          ;
-         expect(gameBoardUi.getAttribute(DISABLE))
+         expect(gameBoardHtmlElement.getAttribute(DISABLE))
              .toBeNull()
          ;
-         expect(gameBoardUi.classList.contains(DISABLE))
+         expect(gameBoardHtmlElement.classList.contains(DISABLE))
              .toBeFalsy()
          ;
       });
@@ -66,27 +69,28 @@ describe('gameBoardUi', () => {
       it('Create new Game (move player O)', () => {
          const gameBoardState = new GameBoardState({ size: 5, firstPlayerWalks: PLAYER.O });
 
-         const gameBoardUi = createGameBoardHtmlElement(
-             gameBoardState
+         fillGameBoardHtmlElement(
+             gameBoardHtmlElement,
+             gameBoardState,
          );
 
-         expect(gameBoardUi.classList.contains(MOVE_GAMER_X))
+         expect(gameBoardHtmlElement.classList.contains(MOVE_GAMER_X))
              .toBeFalsy()
          ;
-         expect(gameBoardUi.classList.contains(WINNER_GAMER_X))
+         expect(gameBoardHtmlElement.classList.contains(WINNER_GAMER_X))
              .toBeFalsy()
          ;
-         expect(gameBoardUi.classList.contains(WINNER_GAMER_O))
+         expect(gameBoardHtmlElement.classList.contains(WINNER_GAMER_O))
              .toBeFalsy()
          ;
-         expect(gameBoardUi.getAttribute(DISABLE))
+         expect(gameBoardHtmlElement.getAttribute(DISABLE))
              .toBeNull()
          ;
-         expect(gameBoardUi.classList.contains(DISABLE))
+         expect(gameBoardHtmlElement.classList.contains(DISABLE))
              .toBeFalsy()
          ;
 
-         expect(gameBoardUi.classList.contains(MOVE_GAMER_O))
+         expect(gameBoardHtmlElement.classList.contains(MOVE_GAMER_O))
              .toBeTruthy()
          ;
       });
@@ -102,26 +106,27 @@ describe('gameBoardUi', () => {
 
          gameBoardState.addMark({x: 3, y: 1});
 
-         const gameBoardUi = createGameBoardHtmlElement(
-             gameBoardState
+         fillGameBoardHtmlElement(
+             gameBoardHtmlElement,
+             gameBoardState,
          );
 
-         expect(gameBoardUi.classList.contains(MOVE_GAMER_X))
+         expect(gameBoardHtmlElement.classList.contains(MOVE_GAMER_X))
              .toBeFalsy()
          ;
-         expect(gameBoardUi.classList.contains(MOVE_GAMER_O))
+         expect(gameBoardHtmlElement.classList.contains(MOVE_GAMER_O))
              .toBeFalsy()
          ;
-         expect(gameBoardUi.classList.contains(WINNER_GAMER_X))
+         expect(gameBoardHtmlElement.classList.contains(WINNER_GAMER_X))
              .toBeFalsy()
          ;
-         expect(gameBoardUi.classList.contains(WINNER_GAMER_O))
+         expect(gameBoardHtmlElement.classList.contains(WINNER_GAMER_O))
              .toBeTruthy()
          ;
-         expect(gameBoardUi.getAttribute(DISABLE))
+         expect(gameBoardHtmlElement.getAttribute(DISABLE))
              .toBe(DISABLE)
          ;
-         expect(gameBoardUi.classList.contains(DISABLE))
+         expect(gameBoardHtmlElement.classList.contains(DISABLE))
              .toBeTruthy()
          ;
       });
@@ -135,27 +140,28 @@ describe('gameBoardUi', () => {
          gameBoardState.addMark({x: 2, y: 2});
          gameBoardState.addMark({x: 3, y: 1});
 
-         const gameBoardUi = createGameBoardHtmlElement(
-             gameBoardState
+         fillGameBoardHtmlElement(
+             gameBoardHtmlElement,
+             gameBoardState,
          );
 
-         expect(gameBoardUi.classList.contains(MOVE_GAMER_X))
+         expect(gameBoardHtmlElement.classList.contains(MOVE_GAMER_X))
              .toBeFalsy()
          ;
-         expect(gameBoardUi.classList.contains(MOVE_GAMER_O))
+         expect(gameBoardHtmlElement.classList.contains(MOVE_GAMER_O))
              .toBeFalsy()
          ;
-         expect(gameBoardUi.classList.contains(WINNER_GAMER_O))
+         expect(gameBoardHtmlElement.classList.contains(WINNER_GAMER_O))
              .toBeFalsy()
          ;
-         expect(gameBoardUi.getAttribute(DISABLE))
+         expect(gameBoardHtmlElement.getAttribute(DISABLE))
              .toBe(DISABLE)
          ;
-         expect(gameBoardUi.classList.contains(DISABLE))
+         expect(gameBoardHtmlElement.classList.contains(DISABLE))
              .toBeTruthy()
          ;
 
-         expect(gameBoardUi.classList.contains(WINNER_GAMER_X))
+         expect(gameBoardHtmlElement.classList.contains(WINNER_GAMER_X))
              .toBeTruthy()
          ;
       });
@@ -177,30 +183,31 @@ describe('gameBoardUi', () => {
 
          gameBoardState.addMark({x: 3, y: 3});
 
-         const gameBoardUi = createGameBoardHtmlElement(
-             gameBoardState
+         fillGameBoardHtmlElement(
+             gameBoardHtmlElement,
+             gameBoardState,
          );
 
-         expect(gameBoardUi.classList.contains(MOVE_GAMER_X))
+         expect(gameBoardHtmlElement.classList.contains(MOVE_GAMER_X))
              .toBeFalsy()
          ;
-         expect(gameBoardUi.classList.contains(MOVE_GAMER_O))
+         expect(gameBoardHtmlElement.classList.contains(MOVE_GAMER_O))
              .toBeFalsy()
          ;
-         expect(gameBoardUi.classList.contains(WINNER_GAMER_O))
+         expect(gameBoardHtmlElement.classList.contains(WINNER_GAMER_O))
              .toBeFalsy()
          ;
-         expect(gameBoardUi.classList.contains(WINNER_GAMER_X))
+         expect(gameBoardHtmlElement.classList.contains(WINNER_GAMER_X))
              .toBeFalsy()
          ;
-         expect(gameBoardUi.getAttribute(DISABLE))
+         expect(gameBoardHtmlElement.getAttribute(DISABLE))
              .toBe(DISABLE)
          ;
-         expect(gameBoardUi.classList.contains(DISABLE))
+         expect(gameBoardHtmlElement.classList.contains(DISABLE))
              .toBeTruthy()
          ;
 
-         expect(gameBoardUi.classList.contains(DRAW))
+         expect(gameBoardHtmlElement.classList.contains(DRAW))
              .toBeTruthy()
          ;
       });
@@ -218,10 +225,11 @@ describe('gameBoardUi', () => {
          const {
             winner,
          } = winnerInformation;
-         const gameBoardUi = createGameBoardHtmlElement(
-             gameBoardState
+         fillGameBoardHtmlElement(
+             gameBoardHtmlElement,
+             gameBoardState,
          );
-         const gameBoardRows = gameBoardUi.children as unknown as HTMLElement[];
+         const gameBoardRows = gameBoardHtmlElement.children as unknown as HTMLElement[];
 
          for (let y = 1; y <= size; y++) {
             for (let x = 1; x <= size; x++) {
@@ -294,11 +302,12 @@ describe('gameBoardUi', () => {
          gameBoardState.addMark({ x: 1, y: 1 });
          gameBoardState.addMark({ x: 4, y: 5 });
 
-         const gameBoardUi = createGameBoardHtmlElement(
-             gameBoardState
+         fillGameBoardHtmlElement(
+             gameBoardHtmlElement,
+             gameBoardState,
          );
 
-         const gameBoardRows = gameBoardUi.children as unknown as HTMLElement[];
+         const gameBoardRows = gameBoardHtmlElement.children as unknown as HTMLElement[];
 
          for (let y = 1; y <= gameBoardRows.length; y++) {
             for (let x = 1; x <= gameBoardRows.length; x++) {
@@ -531,8 +540,9 @@ describe('gameBoardUi', () => {
 
          gameBoardState.addMark({ x: 1, y: 3 });
 
-         const gameBoardUi = createGameBoardHtmlElement(
-             gameBoardState
+         fillGameBoardHtmlElement(
+             gameBoardHtmlElement,
+             gameBoardState,
          );
 
          // @ts-ignore
@@ -541,8 +551,8 @@ describe('gameBoardUi', () => {
          }
 
          if (winningLine && winnerDirectionLine) {
-            crossOutWinningLine(gameBoardUi, winningLine, winnerDirectionLine);
-            const cellsArray = getGameBoardCellsArray(gameBoardUi);
+            crossOutWinningLine(gameBoardHtmlElement, winningLine, winnerDirectionLine);
+            const cellsArray = getGameBoardCellsArray(gameBoardHtmlElement);
 
             for (const cellsRows of cellsArray) {
                for (const cellHtmlElement of cellsRows) {
