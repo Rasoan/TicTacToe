@@ -8,35 +8,35 @@
 <body>
 <div id="__ROOT_ID__" class="root">
     <div id="Settings" class="settings">
-        <form id="__SETTINGS_FORM_ID__" class="settings__form settingsForm">
-            <fieldset class="settingsForm__section settingsFormSection">
-                <legend class="settingsFormSection__legend settingsFormLegend">Settings</legend>
-                <label class="settingsFormSection__label settingsFormLabel">
-                    <input id="__PLAYING_FIELD_DIMENSION_ID__"
-                           class="settingsFormLabel__input settingsFormInput"
-                           type="number"
-                           min="3"
-                           max="55"
-                           value="3"
-                           step="2"
-                    >
-                    <span class="settingsFormLabel__text settingsFormLabelText">Playing field</span>
-                </label>
-                <label class="settingsFormSection__label settingsFormLabel">
-                    <input id="__WINNING_STREAK_DIMENSION_ID__"
-                           class="settingsFormLabel__input settingsFormInput"
-                           type="number"
-                           min="3"
-                           max="3"
-                           value="2"
-                           step="1"
-                    >
-                    <span class="settingsFormLabel__text settingsFormLabelText">Winning streak</span>
-                </label>
-            </fieldset>
-            <button id="__START_GAME_BUTTON_ID__" class="settingsForm__buttonSubmit settingsFormButtonSubmit">Start game</button>
-        </form>
-        <button id="__RELOAD_GAME_BUTTON_ID__" >Reload game</button>
+        <fieldset class="settings__section settingsSection">
+            <legend class="settingsSection__legend settingsLegend">Settings</legend>
+            <label class="settingsSection__label settingsLabel">
+                <input id="__PLAYING_FIELD_DIMENSION_ID__"
+                       class="settingsLabel__input settingsInput"
+                       type="number"
+                       min="3"
+                       max="55"
+                       value="3"
+                       step="2"
+                >
+                <span class="settingsLabel__text settingsLabelText">Size board</span>
+            </label>
+            <label class="settingsSection__label settingsLabel">
+                <input id="__WINNING_STREAK_DIMENSION_ID__"
+                       class="settingsLabel__input settingsInput"
+                       type="number"
+                       min="3"
+                       max="3"
+                       value="2"
+                       step="1"
+                >
+                <span class="settingsLabel__text settingsLabelText">Winning streak</span>
+            </label>
+        </fieldset>
+        <div class="settings__buttonsContainer buttonsContainer">
+            <button id="__START_GAME_BUTTON_ID__" class="buttonsContainer__buttonSubmit buttonSubmit">Start game</button>
+            <button id="__RESTART_GAME_BUTTON_ID__" class="buttonsContainer__buttonRestart buttonRestart">Restart game</button>
+        </div>
     </div>
     <div id="__GAME_BOARD_ID__" class="gameBoard"></div>
 </div>

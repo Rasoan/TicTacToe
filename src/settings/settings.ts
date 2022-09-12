@@ -37,14 +37,12 @@ export function initializeSettingsFormFromLocalStorage(
 }
 
 
-export function addListenerForHtmlForm(
-    settingsForm: HTMLElement,
+export function addListenerForButtonStartGame(
+    buttonStartGame: HTMLElement,
     gameBoardHtmlElement: HTMLElement,
     gameBoardState: GameBoardState,
 ): void {
-    settingsForm.addEventListener('submit', (event: SubmitEvent) => {
-        event.preventDefault();
-
+    buttonStartGame.addEventListener('click', (event: MouseEvent) => {
         const playingFieldDimension = document.getElementById(PLAYING_FIELD_DIMENSION_ID) as HTMLInputElement | null;
         const winningStreakDimension = document.getElementById(WINNING_STREAK_DIMENSION_ID) as HTMLInputElement | null;
 

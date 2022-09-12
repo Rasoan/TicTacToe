@@ -1,15 +1,15 @@
 'use strict';
 
 import {
-    PLAYING_FIELD_DIMENSION_ID, RELOAD_GAME_BUTTON_ID, ROOT_ID,
+    PLAYING_FIELD_DIMENSION_ID, RESTART_GAME_BUTTON_ID, ROOT_ID,
     SETTINGS_FORM_ID, START_GAME_BUTTON_ID,
     WINNING_STREAK_DIMENSION_ID,
 } from "./src/constants/constants";
 import {
     addListenerForChangeMaxWinStreak,
-    addListenerForHtmlForm,
+    addListenerForButtonStartGame,
     initializeSettingsFormFromLocalStorage,
-} from "./src/SettingsForm/SettingsForm";
+} from "./src/Settings/Settings";
 import {
     fillGameBoardHtmlElement, handleEndGame, handleReloadGame, handleStartGame, onClickGameBoard
 } from "./src/gameBoardUi/gameBoardUi";
@@ -22,8 +22,8 @@ import {getValueForLocalStorage, LocalStorageKeys} from "./src/localStorage/loca
 {
     const playingFieldDimension = document.getElementById(PLAYING_FIELD_DIMENSION_ID) as HTMLInputElement | null;
     const winningStreakDimension = document.getElementById(WINNING_STREAK_DIMENSION_ID) as HTMLInputElement | null;
-    const settingsForm = document.getElementById(SETTINGS_FORM_ID) as HTMLFormElement | null;
-    const buttonReloadGame = document.getElementById(RELOAD_GAME_BUTTON_ID) as HTMLElement | null;
+    const buttonReloadGame = document.getElementById(RESTART_GAME_BUTTON_ID) as HTMLElement | null;
+    const buttonStartGame = document.getElementById(START_GAME_BUTTON_ID) as HTMLElement | null;
     const rootElement = document.getElementById(ROOT_ID) as HTMLElement | null;
 
     let gameBoardHtmlElement = document.createElement('div');
@@ -51,14 +51,14 @@ import {getValueForLocalStorage, LocalStorageKeys} from "./src/localStorage/loca
         console.error('playingFieldDimension or winningStreakDimension is not defined!');
     }
 
-    if (settingsForm) {
-        addListenerForHtmlForm(
-            settingsForm,
+    if (buttonStartGame) {
+        addListenerForButtonStartGame(
+            buttonStartGame,
             gameBoardHtmlElement,
             gameBoardState,
         );
     } else {
-        console.error('settingsForm is not defined!');
+        console.error('buttonStartGame is not defined!');
     }
 
     fillGameBoardHtmlElement(gameBoardHtmlElement, gameBoardState);

@@ -3,9 +3,9 @@
 import {PLAYING_FIELD_DIMENSION_ID, WINNING_STREAK_DIMENSION_ID} from "../../src/constants/constants";
 import {
    addListenerForChangeMaxWinStreak,
-   addListenerForHtmlForm,
+   addListenerForButtonStartGame,
    initializeSettingsFormFromLocalStorage
-} from "../../src/settingsForm/settingsForm";
+} from "../../src/settings/settings";
 import {getValueForLocalStorage, LocalStorageKeys, setValueForLocalStorage} from "../../src/localStorage/localStorage";
 
 describe('settingsForm', () => {
