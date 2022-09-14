@@ -5,42 +5,85 @@
   align-items: center;
   flex-direction: column;
 
-  &Section {
-    width: 88%;
-    display: flex;
-    flex-direction: column;
+  &__sectionWithFields {
+    margin-bottom: 5px;
   }
 
-  &Section__label {
-    margin: 8px 0;
-  }
-
-  &Label__input {
-    margin-right: 10px;
-  }
-
-  &Input {
-    width: 35px;
-    padding: 2px 4px;
-  }
-
-  &__buttonsContainer {
-    margin-top: 10px;
+  &__sectionWithControlButtons {
+    margin-top: 5px;
   }
 }
 
-.buttonsContainer {
+.sectionWithFields {
+  width: 88%;
+  display: flex;
+  flex-direction: column;
+
+  &__subsection {
+    margin-bottom: 8px;
+  }
+}
+
+.sectionWithControlButtons {
   display: flex;
   justify-content: space-between;
   height: 25px;
   width: 100%;
 }
 
-.buttonSubmit, .buttonRestart {
+.subsectionWithFields {
+  &__field {
+    margin-right: 10px;
+  }
+}
+
+.buttonStartGame,
+.buttonRestartGame {
   padding: 4px 0;
   width: 48%;
 
   &:hover {
     cursor: pointer;
   }
+}
+
+.field {
+  width: 35px;
+  padding: 2px 4px;
+}
+
+.sectionWithChoice {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+
+  &__header {
+    margin-bottom: 5px;
+  }
+
+  &__subsection {
+    margin-top: 2px;
+  }
+}
+
+.subsectionWithChoice {
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.descriptionForRadioButton {
+  &-player-o {
+    color: red;
+  }
+
+  &-player-x {
+    color: black;
+  }
+}
+
+.symbol-x,
+.symbol-o {
+  font-weight: bold;
+  text-transform: capitalize;
 }
