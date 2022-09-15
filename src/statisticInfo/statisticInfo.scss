@@ -1,0 +1,29 @@
+.wrapperForStatisticsAndSettings {
+  margin: 10px;
+  width: 220px;
+}
+
+.statistics-info {
+  margin-bottom: 20px;
+}
+
+.statisticInfoHeader {
+  &Symbol-x {
+    color: black;
+  }
+
+  &Symbol-o {
+    color: red;
+  }
+
+  &Symbol-o,
+  &Symbol-x {
+    text-transform: uppercase;
+    font-weight: bold;
+  }
+}
+
+.statisticInfoHeader,
+.statisticInfoValue {
+  font-size: 18px;
+}

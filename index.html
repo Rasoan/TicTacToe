@@ -7,67 +7,80 @@
 </head>
 <body>
 <div id="__ROOT_ID__" class="root">
-    <div id="Settings" class="settings">
-        <fieldset class="settings__sectionWithFields sectionWithFields">
-            <legend class="sectionWithFields__header sectionWithFieldsHeader">Settings</legend>
-            <label class="sectionWithFields__subsection subsectionWithFields">
-                <input class="subsectionWithFields__field field"
-                       id="__PLAYING_FIELD_DIMENSION_ID__"
-                       type="number"
-                       min="3"
-                       max="55"
-                       value="3"
-                       step="2"
-                >
-                <span class="subsectionWithFields__descriptionField descriptionField">Size board</span>
-            </label>
-            <label class="sectionWithFields__subsection subsectionWithFields">
-                <input class="subsectionWithFields__field field"
-                       id="__WINNING_STREAK_DIMENSION_ID__"
-                       type="number"
-                       min="3"
-                       max="3"
-                       value="2"
-                       step="1"
-                >
-                <span class="subsectionWithFields__descriptionField descriptionField">Winning streak</span>
-            </label>
-            <label class="sectionWithFields__subsection subsectionWithFields sectionWithChoice">
-                <legend class="sectionWithChoice__header sectionWithChoiceHeader">First player walks</legend>
-                <label class="sectionWithChoice__subsection subsectionWithChoice">
-                    <input class="subsectionWithChoice__radioButton radioButton"
-                           type="radio"
-                           name="firstPlayerWalks"
-                           value="x"
-                           checked
+    <div class="wrapperForStatisticsAndSettings">
+        <fieldset class="statistics-info">
+            <legend>Count of wins</legend>
+            <div class="statistic-info__section statisticInfoSection">
+                <span class="statisticInfoHeader__symbol statisticInfoHeaderSymbol-x">x</span>:
+                <span class="statisticInfoSection__value statisticInfoValue">0</span>
+            </div>
+            <div class="statistic-info__section statisticInfoSection">
+                <span class="statisticInfoHeader__symbol statisticInfoHeaderSymbol-o">o</span>:
+                <span class="statisticInfoSection__value statisticInfoValue">0</span>
+            </div>
+        </fieldset>
+        <div id="Settings" class="settings">
+            <fieldset class="settings__sectionWithFields sectionWithFields">
+                <legend class="sectionWithFields__header sectionWithFieldsHeader">Settings</legend>
+                <label class="sectionWithFields__subsection subsectionWithFields">
+                    <input class="subsectionWithFields__field field"
+                           id="__PLAYING_FIELD_DIMENSION_ID__"
+                           type="number"
+                           min="3"
+                           max="55"
+                           value="3"
+                           step="2"
                     >
-                    <span class="subsectionWithChoice__descriptionForRadioButton descriptionForRadioButton descriptionForRadioButton-player-x">
+                    <span class="subsectionWithFields__descriptionField descriptionField">Size board</span>
+                </label>
+                <label class="sectionWithFields__subsection subsectionWithFields">
+                    <input class="subsectionWithFields__field field"
+                           id="__WINNING_STREAK_DIMENSION_ID__"
+                           type="number"
+                           min="3"
+                           max="3"
+                           value="2"
+                           step="1"
+                    >
+                    <span class="subsectionWithFields__descriptionField descriptionField">Winning streak</span>
+                </label>
+                <label class="sectionWithFields__subsection subsectionWithFields sectionWithChoice">
+                    <legend class="sectionWithChoice__header sectionWithChoiceHeader">First player walks</legend>
+                    <label class="sectionWithChoice__subsection subsectionWithChoice">
+                        <input class="subsectionWithChoice__radioButton radioButton"
+                               type="radio"
+                               name="firstPlayerWalks"
+                               value="x"
+                               checked
+                        >
+                        <span class="subsectionWithChoice__descriptionForRadioButton descriptionForRadioButton descriptionForRadioButton-player-x">
                         Player <span class="descriptionForRadioButton__symbol-x symbol-x">x</span>
                     </span>
-                </label>
-                <label class="sectionWithChoice__subsection subsectionWithChoice">
-                    <input class="subsectionWithChoice__radioButton radioButton"
-                           type="radio"
-                           name="firstPlayerWalks"
-                           value="o"
-                    >
-                    <span class="subsectionWithChoice__descriptionForRadioButton descriptionForRadioButton descriptionForRadioButton-player-o">
+                    </label>
+                    <label class="sectionWithChoice__subsection subsectionWithChoice">
+                        <input class="subsectionWithChoice__radioButton radioButton"
+                               type="radio"
+                               name="firstPlayerWalks"
+                               value="o"
+                        >
+                        <span class="subsectionWithChoice__descriptionForRadioButton descriptionForRadioButton descriptionForRadioButton-player-o">
                         Player <span class="descriptionForRadioButton__symbol-o symbol-o">o</span>
                     </span>
+                    </label>
                 </label>
-            </label>
-        </fieldset>
-        <div class="settings__sectionWithControlButtons sectionWithControlButtons">
-            <button class="sectionWithControlButtons__buttonStartGame buttonStartGame"
-                    id="__START_GAME_BUTTON_ID__"
-            >
-                Start game
-            </button>
-            <button class="sectionWithControlButtons__buttonRestartGame buttonRestartGame"
-                    id="__RESTART_GAME_BUTTON_ID__"
-            >
-                Restart game
-            </button>
+            </fieldset>
+            <div class="settings__sectionWithControlButtons sectionWithControlButtons">
+                <button class="sectionWithControlButtons__buttonStartGame buttonStartGame"
+                        id="__START_GAME_BUTTON_ID__"
+                >
+                    Start game
+                </button>
+                <button class="sectionWithControlButtons__buttonRestartGame buttonRestartGame"
+                        id="__RESTART_GAME_BUTTON_ID__"
+                >
+                    Restart game
+                </button>
+            </div>
         </div>
     </div>
     <div id="__GAME_BOARD_ID__" class="gameBoard"></div>
