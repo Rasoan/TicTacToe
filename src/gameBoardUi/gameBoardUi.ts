@@ -29,9 +29,14 @@ import {
     PLAYER,
     WINNER
 } from "../GameBoardState/declaration/GameBoardState";
-import {GAME_BOARD_HTML_ELEMENT_ID} from "../constants/constants";
+import {
+    GAME_BOARD_HTML_ELEMENT_ID, STATISTICS_COUNT_VALUE_DRAW,
+    STATISTICS_COUNT_VALUE_WIN_O,
+    STATISTICS_COUNT_VALUE_WIN_X
+} from "../constants/constants";
 import GameBoardState from "../GameBoardState/GameBoardState";
 import {LocalStorageKeys, setValueForLocalStorage} from "../localStorage/localStorage";
+import {updateStatisticInformation} from "../statisticInfo/statisticInfo";
 
 export function createMarkHtmlElement(mark: PLAYER.X | PLAYER.O, hiddenMark = true): HTMLElement {
     const markHtmlElement = document.createElement('span');
@@ -370,7 +375,13 @@ export function handleEndGame(gameBoardHtmlElement: HTMLElement, winnerInformati
         winner,
         winnerDirectionLine,
         winningLine,
+        statistics,
     } = winnerInformation;
+    const {
+        countDraw,
+        countWin_o,
+        countWin_x,
+    } = statistics;
 
     if (!gameBoardHtmlElement) {
         throw new Error('gameBoardHtmlElement is not found!');
@@ -406,6 +417,12 @@ export function handleEndGame(gameBoardHtmlElement: HTMLElement, winnerInformati
     if ((winner !== WINNER.DRAW) &&  winningLine && winnerDirectionLine) {
         crossOutWinningLine(gameBoardHtmlElement, winningLine, winnerDirectionLine);
     }
+
+    updateStatisticInformation(
+        String(countWin_x),
+        String(countWin_o),
+        String(countDraw),
+    );
 }
 
 export function crossOutWinningLine(
@@ -468,7 +485,7 @@ export function handleReloadGame(
     gameBoardHtmlElement: HTMLElement,
     gameBoardState: GameBoardState,
 ) {
-    gameBoardState.resetGame();
+    gameBoardState.restartGame();
 
     fillGameBoardHtmlElement(gameBoardHtmlElement, gameBoardState);
 
@@ -497,7 +514,7 @@ export function handleStartGame(
 
     _resetGameBoardHtmlElement(gameBoardHtmlElement);
 
-    gameBoardState.resetGame();
+    gameBoardState.restartGame();
 
     fillGameBoardHtmlElement(gameBoardHtmlElement, gameBoardState);
 

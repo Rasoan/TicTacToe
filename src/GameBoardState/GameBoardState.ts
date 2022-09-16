@@ -1,28 +1,19 @@
 'use strict';
 
-import type {
-    IGameBoardStateOptions,
-    IWinnerInformation,
-    ICoordinate,
-} from "./declaration/GameBoardState";
+import type {ICoordinate, IGameBoardStateOptions, IWinnerInformation,} from "./declaration/GameBoardState";
+import {COORDINATE, IMarkInformation, ORIENTATION, PLAYER, WINNER,} from "./declaration/GameBoardState";
 
 import {
-    _checkIsValidCoordinate,
     _checkIsCanMovie,
-    _checkIsValidBoardFormat,
     _checkIsNotAlreadyMarkedCell,
+    _checkIsValidBoardFormat,
+    _checkIsValidCoordinate,
+    _getArrayOfCoordinatesMarksInLine,
     _getDefaultBordValues,
     _normalizeCoordinate,
+    _playerToWinner,
     _togglePlayer,
-    _getArrayOfCoordinatesMarksInLine, _playerToWinner,
 } from "./gameBoardState_utils";
-
-import {
-    IMarkInformation,
-    ORIENTATION,
-    PLAYER,
-    WINNER,
-} from "./declaration/GameBoardState";
 
 export default class GameBoardState {
     private _board: Array<PLAYER[]>;
@@ -46,6 +37,11 @@ export default class GameBoardState {
                 winner: WINNER._UNKNOWN_,
                 winnerDirectionLine: ORIENTATION._UNKNOWN_,
                 winningLine: [],
+                statistics: {
+                    countDraw: 0,
+                    countWin_o: 0,
+                    countWin_x: 0,
+                }
             },
             size = 3,
             winningStreak,
@@ -153,6 +149,7 @@ export default class GameBoardState {
 
             if (!isCanMovie) {
                 winnerInformation.winner = WINNER.DRAW;
+                this.winnerInformation.statistics.countDraw++;
 
                 this._handleEndGame(this.winnerInformation);
 
@@ -189,9 +186,10 @@ export default class GameBoardState {
             playerWalks,
         );
         if (arrayOfCoordinatesMarksInLine.length === winningStreak) {
-            winnerInformation.winner = _playerToWinner(playerWalks);
-            winnerInformation.winnerDirectionLine = ORIENTATION.VERTICAL;
-            winnerInformation.winningLine = arrayOfCoordinatesMarksInLine;
+            this._fillWinnerInformation(
+                arrayOfCoordinatesMarksInLine,
+                ORIENTATION.VERTICAL,
+            );
 
             return true;
         }
@@ -203,9 +201,10 @@ export default class GameBoardState {
             playerWalks,
         );
         if (arrayOfCoordinatesMarksInLine.length === winningStreak) {
-            winnerInformation.winner = _playerToWinner(playerWalks);
-            winnerInformation.winnerDirectionLine = ORIENTATION.HORIZONTAL;
-            winnerInformation.winningLine = arrayOfCoordinatesMarksInLine;
+            this._fillWinnerInformation(
+                arrayOfCoordinatesMarksInLine,
+                ORIENTATION.HORIZONTAL,
+            );
 
             return true;
         }
@@ -217,9 +216,10 @@ export default class GameBoardState {
             playerWalks,
         );
         if (arrayOfCoordinatesMarksInLine.length === winningStreak) {
-            winnerInformation.winner = _playerToWinner(playerWalks);
-            winnerInformation.winnerDirectionLine = ORIENTATION.DIAGONAL_RIGHT;
-            winnerInformation.winningLine = arrayOfCoordinatesMarksInLine;
+            this._fillWinnerInformation(
+                arrayOfCoordinatesMarksInLine,
+                ORIENTATION.DIAGONAL_RIGHT,
+            );
 
             return true;
         }
@@ -232,9 +232,10 @@ export default class GameBoardState {
         );
 
         if (arrayOfCoordinatesMarksInLine.length === winningStreak) {
-            winnerInformation.winner = _playerToWinner(playerWalks);
-            winnerInformation.winnerDirectionLine = ORIENTATION.DIAGONAL_LEFT;
-            winnerInformation.winningLine = arrayOfCoordinatesMarksInLine;
+            this._fillWinnerInformation(
+                arrayOfCoordinatesMarksInLine,
+                ORIENTATION.DIAGONAL_LEFT,
+            );
 
             return true;
         }
@@ -242,10 +243,31 @@ export default class GameBoardState {
         return false;
     }
 
-    public resetGame() {
+    private _fillWinnerInformation(
+        arrayOfCoordinatesMarksInLine: ICoordinate[],
+        orientation: ORIENTATION,
+    ) {
+        const {
+            playerWalks,
+            _winnerInformation: winnerInformation,
+        } = this;
+
+        winnerInformation.winner = _playerToWinner(playerWalks);
+        winnerInformation.winnerDirectionLine = orientation;
+        winnerInformation.winningLine = arrayOfCoordinatesMarksInLine;
+
+        if (playerWalks === PLAYER.X) {
+            winnerInformation.statistics.countWin_x++;
+        } else if (playerWalks === PLAYER.O) {
+            winnerInformation.statistics.countWin_o++;
+        }
+    }
+
+    public restartGame() {
         this._playerWalks = this._firstPlayerWalks;
         this._board = _getDefaultBordValues(this.size);
         this._winnerInformation = {
+            ...this.winnerInformation,
             winner: WINNER._UNKNOWN_,
             winnerDirectionLine: ORIENTATION._UNKNOWN_,
             winningLine: [],
@@ -282,7 +304,16 @@ export default class GameBoardState {
 
         this._winningStreak = winningStreak && winningStreak <= this.size ? winningStreak: this.size;
         this._firstPlayerWalks = firstPlayerWalks;
-        this._winnerInformation = winnerInformation;
+        this._winnerInformation = {
+            ...this._winnerInformation,
+            ...winnerInformation,
+        };
+    }
+
+    public resetStatistics() {
+        this._winnerInformation.statistics.countWin_o = 0;
+        this._winnerInformation.statistics.countWin_x = 0;
+        this._winnerInformation.statistics.countDraw = 0;
     }
 
     public toJSON(): string {

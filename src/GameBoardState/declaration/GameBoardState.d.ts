@@ -11,9 +11,12 @@ export interface IWinnerInformation {
     winner: WINNER;
     winningLine?: ICoordinate[];
     winnerDirectionLine?: ORIENTATION;
+    statistics: {
+        countWin_x: number,
+        countWin_o: number,
+        countDraw: number,
+    }
 }
-
-export type IRequiredWinnerInformation = Required<IWinnerInformation>;
 
 export interface ICoordinate {
     x: number;

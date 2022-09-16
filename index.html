@@ -8,17 +8,44 @@
 <body>
 <div id="__ROOT_ID__" class="root">
     <div class="wrapperForStatisticsAndSettings">
-        <fieldset class="statistics-info">
-            <legend>Count of wins</legend>
-            <div class="statistic-info__section statisticInfoSection">
-                <span class="statisticInfoHeader__symbol statisticInfoHeaderSymbol-x">x</span>:
-                <span class="statisticInfoSection__value statisticInfoValue">0</span>
+        <div class="statistics-info">
+            <fieldset class="statistics-info__section-info statisticInfoSectionInfo">
+                <legend>Count of wins</legend>
+                <div class="statisticInfoSectionInfo__subsection statisticInfoSubsectionInfo">
+                    <span class="statisticInfoSubsectionInfo__player statisticInfoPlayer-x">x</span>:
+                    <span
+                            id="STATISTICS-COUNT-VALUE_WIN-X"
+                            class="statisticInfoSubsectionInfo__value statisticInfoValue"
+                    >
+                </span>
+                </div>
+                <div class="statisticInfoSectionInfo__subsection statisticInfoSubsectionInfo">
+                    <span class="statisticInfoSubsectionInfo__player statisticInfoPlayer-o">o</span>:
+                    <span
+                            id="STATISTICS-COUNT-VALUE_WIN-O"
+                            class="statisticInfoSubsectionInfo__value statisticInfoValue"
+                    >
+                </span>
+                </div>
+                <div class="statisticInfoSectionInfo__subsection statisticInfoSubsectionInfo">
+                    <span class="statisticInfoSubsectionInfo__player statisticInfoPlayer-draw">draw</span>:
+                    <span
+                            id="STATISTICS-COUNT-VALUE_WIN-DRAW"
+                            class="statisticInfoSubsectionInfo__value statisticInfoValue"
+                    >
+                    0
+                </span>
+                </div>
+            </fieldset>
+            <div class="statistics-info__section-buttons statisticInfoSectionButtons">
+                <button
+                        id="__RESET_STATISTICS_BUTTON_ID__"
+                        class="statisticInfoSectionButtons__buttonResetStatistics buttonResetStatistics"
+                >
+                    Reset statistics
+                </button>
             </div>
-            <div class="statistic-info__section statisticInfoSection">
-                <span class="statisticInfoHeader__symbol statisticInfoHeaderSymbol-o">o</span>:
-                <span class="statisticInfoSection__value statisticInfoValue">0</span>
-            </div>
-        </fieldset>
+        </div>
         <div id="Settings" class="settings">
             <fieldset class="settings__sectionWithFields sectionWithFields">
                 <legend class="sectionWithFields__header sectionWithFieldsHeader">Settings</legend>

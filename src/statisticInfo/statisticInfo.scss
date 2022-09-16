@@ -7,6 +7,10 @@
   margin-bottom: 20px;
 }
 
+.statisticInfoSectionInfo {
+  margin-bottom: 5px;
+}
+
 .statisticInfoHeader {
   &Symbol-x {
     color: black;
@@ -26,4 +30,22 @@
 .statisticInfoHeader,
 .statisticInfoValue {
   font-size: 18px;
+}
+
+.statisticInfoSectionButtons {
+  padding: 5px;
+  display: flex;
+  justify-content: center;
+}
+
+.buttonResetStatistics {
+  width: 100%;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.statisticInfoPlayer-o {
+  color: red;
 }

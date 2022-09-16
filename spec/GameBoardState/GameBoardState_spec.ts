@@ -23,6 +23,11 @@ describe('GameBoardState', () => {
                     winner: WINNER._UNKNOWN_,
                     winnerDirectionLine: ORIENTATION._UNKNOWN_,
                     winningLine: [],
+                    statistics: {
+                        countWin_o: 0,
+                        countWin_x: 0,
+                        countDraw: 0,
+                    }
                 })
             ;
             expect(gameBoardState.size)
@@ -77,6 +82,11 @@ describe('GameBoardState', () => {
                     winner: WINNER._UNKNOWN_,
                     winnerDirectionLine: ORIENTATION._UNKNOWN_,
                     winningLine: [],
+                    statistics: {
+                        countWin_o: 0,
+                        countWin_x: 0,
+                        countDraw: 0,
+                    }
                 })
             ;
             expect(gameBoardState.size)
@@ -125,6 +135,11 @@ describe('GameBoardState', () => {
                     {x: 0, y: 1},
                     {x: 0, y: 2},
                 ],
+                statistics: {
+                    countDraw: 0,
+                    countWin_o: 1,
+                    countWin_x: 0,
+                }
             };
 
             const gameBoardState = new GameBoardState({
@@ -387,6 +402,11 @@ describe('GameBoardState', () => {
                     {x: 1, y: 1},
                     {x: 1, y: 2},
                 ],
+                statistics: {
+                    countWin_o: 0,
+                    countWin_x: 1,
+                    countDraw: 0,
+                }
             };
 
             expect(gameBoardState.board)
@@ -462,6 +482,11 @@ describe('GameBoardState', () => {
                     {x: 0, y: 1},
                     {x: 0, y: 2},
                 ],
+                statistics: {
+                    countWin_o: 1,
+                    countWin_x: 0,
+                    countDraw: 0,
+                }
             };
 
             expect(gameBoardState.board)
@@ -550,6 +575,11 @@ describe('GameBoardState', () => {
                     {x: 3, y: 0},
                     {x: 4, y: 0},
                 ],
+                statistics: {
+                    countWin_o: 0,
+                    countWin_x: 1,
+                    countDraw: 0,
+                }
             };
 
             expect(gameBoardState.board)
@@ -639,6 +669,11 @@ describe('GameBoardState', () => {
                     {x: 3, y: 3},
                     {x: 4, y: 3},
                 ],
+                statistics: {
+                    countWin_o: 1,
+                    countWin_x: 0,
+                    countDraw: 0,
+                }
             };
 
             expect(gameBoardState.board)
@@ -708,6 +743,11 @@ describe('GameBoardState', () => {
                     {x: 3, y: 1},
                     {x: 2, y: 2},
                 ],
+                statistics: {
+                    countWin_o: 1,
+                    countWin_x: 0,
+                    countDraw: 0,
+                }
             };
 
             expect(gameBoardState.board)
@@ -779,6 +819,11 @@ describe('GameBoardState', () => {
                     {x: 3, y: 1},
                     {x: 2, y: 2},
                 ],
+                statistics: {
+                    countWin_o: 1,
+                    countWin_x: 0,
+                    countDraw: 0,
+                }
             };
 
             expect(gameBoardState.board)
@@ -863,6 +908,11 @@ describe('GameBoardState', () => {
                     {x: 5, y: 5},
                     {x: 6, y: 6},
                 ],
+                statistics: {
+                    countWin_o: 0,
+                    countWin_x: 1,
+                    countDraw: 0,
+                }
             };
 
             expect(gameBoardState.board)
@@ -964,6 +1014,11 @@ describe('GameBoardState', () => {
                     {x: 3, y: 3},
                     {x: 4, y: 4},
                 ],
+                statistics: {
+                    countWin_o: 0,
+                    countWin_x: 1,
+                    countDraw: 0,
+                }
             };
 
             expect(gameBoardState.board)
@@ -1157,6 +1212,11 @@ describe('GameBoardState', () => {
                 winner: WINNER.DRAW,
                 winnerDirectionLine: ORIENTATION._UNKNOWN_,
                 winningLine: [],
+                statistics: {
+                    countWin_o: 0,
+                    countWin_x: 0,
+                    countDraw: 1,
+                }
             };
 
             expect(gameBoardState.board)
@@ -1211,7 +1271,7 @@ describe('GameBoardState', () => {
             gameBoardState.addMark({x: 3, y: 2,});
             gameBoardState.addMark({x: 4, y: 2,});
 
-            gameBoardState.resetGame();
+            gameBoardState.restartGame();
 
             expect(gameBoardState.board)
                 .toEqual(expectBoard)
