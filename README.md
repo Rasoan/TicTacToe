@@ -1,1 +1,1 @@
-[# Link to gh-pages](https://rasoan.github.io/TicTacToe/index.html)
+[Link to gh-pages](https://rasoan.github.io/TicTacToe/index.html)
