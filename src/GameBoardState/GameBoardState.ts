@@ -185,7 +185,8 @@ export default class GameBoardState {
             board,
             playerWalks,
         );
-        if (arrayOfCoordinatesMarksInLine.length === winningStreak) {
+
+        if (arrayOfCoordinatesMarksInLine.length >= winningStreak) {
             this._fillWinnerInformation(
                 arrayOfCoordinatesMarksInLine,
                 ORIENTATION.VERTICAL,
@@ -200,7 +201,7 @@ export default class GameBoardState {
             board,
             playerWalks,
         );
-        if (arrayOfCoordinatesMarksInLine.length === winningStreak) {
+        if (arrayOfCoordinatesMarksInLine.length >= winningStreak) {
             this._fillWinnerInformation(
                 arrayOfCoordinatesMarksInLine,
                 ORIENTATION.HORIZONTAL,
@@ -215,7 +216,7 @@ export default class GameBoardState {
             board,
             playerWalks,
         );
-        if (arrayOfCoordinatesMarksInLine.length === winningStreak) {
+        if (arrayOfCoordinatesMarksInLine.length >= winningStreak) {
             this._fillWinnerInformation(
                 arrayOfCoordinatesMarksInLine,
                 ORIENTATION.DIAGONAL_RIGHT,
@@ -231,7 +232,7 @@ export default class GameBoardState {
             playerWalks,
         );
 
-        if (arrayOfCoordinatesMarksInLine.length === winningStreak) {
+        if (arrayOfCoordinatesMarksInLine.length >= winningStreak) {
             this._fillWinnerInformation(
                 arrayOfCoordinatesMarksInLine,
                 ORIENTATION.DIAGONAL_LEFT,
